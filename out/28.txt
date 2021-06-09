@@ -1,0 +1,18 @@
+OMP_NUM_THREADS=28
+[00000.050 ms; 1e+04 elems.] [1.644834] sum
+[00000.399 ms; 1e+04 elems.] [1.644834] sumOmp
+
+[00000.392 ms; 1e+05 elems.] [1.644924] sum
+[00000.049 ms; 1e+05 elems.] [1.644924] sumOmp
+
+[00001.859 ms; 1e+06 elems.] [1.644933] sum
+[00000.119 ms; 1e+06 elems.] [1.644933] sumOmp
+
+[00017.260 ms; 1e+07 elems.] [1.644934] sum
+[00001.955 ms; 1e+07 elems.] [1.644934] sumOmp
+
+[00171.615 ms; 1e+08 elems.] [1.644934] sum
+[00015.950 ms; 1e+08 elems.] [1.644934] sumOmp
+
+[01437.252 ms; 1e+09 elems.] [1.644934] sum
+[00149.391 ms; 1e+09 elems.] [1.644934] sumOmp
