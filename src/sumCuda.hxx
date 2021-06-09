@@ -33,7 +33,7 @@ __device__ T sumKernelLoop(T *x, int N, int i, int DI) {
 template <class T>
 __global__ void sumKernel(T *a, T *x, int N) {
   DEFINE(t, b, B, G);
-  __shared__ T cache[BLOCK_DIM];
+  __shared__ T cache[BLOCK_LIMIT];
 
   cache[t] = sumKernelLoop(x, N, B*b+t, G*B);
   sumKernelReduce(cache, B, t);
@@ -42,7 +42,7 @@ __global__ void sumKernel(T *a, T *x, int N) {
 
 
 template <class T>
-float sumCuda(const T *x, int N, const SumOptions& o={}) {
+SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
   int B = o.blockSize;
   int G = min(ceilDiv(N, B), o.gridLimit);
   size_t N1 = N * sizeof(T);
