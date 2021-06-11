@@ -6,11 +6,9 @@
 
 struct SumOptions {
   int repeat;
-  int gridLimit;
-  int blockSize;
 
-  SumOptions(int repeat=1, int gridLimit=GRID_LIMIT, int blockSize=BLOCK_LIMIT) :
-  repeat(repeat), gridLimit(gridLimit), blockSize(blockSize) {}
+  SumOptions(int repeat=1) :
+  repeat(repeat) {}
 };
 
 template <class T>

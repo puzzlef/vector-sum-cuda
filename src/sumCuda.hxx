@@ -34,7 +34,6 @@ template <class T>
 __global__ void sumKernel(T *a, T *x, int N) {
   DEFINE(t, b, B, G);
   __shared__ T cache[BLOCK_LIMIT];
-
   cache[t] = sumKernelLoop(x, N, B*b+t, G*B);
   sumKernelReduce(cache, B, t);
   if (t == 0) a[b] = cache[0];
@@ -42,22 +41,44 @@ __global__ void sumKernel(T *a, T *x, int N) {
 
 
 template <class T>
-SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
-  int B = o.blockSize;
-  int G = min(ceilDiv(N, B), o.gridLimit);
+void sumMemcpyCu(T *a, T *x, int N) {
+  int B = BLOCK_DIM_RM;
+  int G = min(ceilDiv(N, B), GRID_DIM_RM);
+  sumKernel<<<G, B>>>(a, x, N);
+}
+
+template <class T>
+void sumInplaceCu(T *a, T *x, int N) {
+  int B = BLOCK_DIM_RI;
+  int G = min(ceilDiv(N, B), GRID_DIM_RI);
+  sumKernel<<<G, B>>>(a, x, N);
+  sumKernel<<<1, G>>>(a, a, G);
+}
+
+template <class T>
+void sumCu(T *a, T *x, int N) {
+  sumInplaceCu(a, x, N);
+}
+
+
+
+
+template <class T>
+SumResult<T> sumMemcpyCuda(const T *x, int N, const SumOptions& o={}) {
+  const int G = GRID_DIM_RM;
   size_t N1 = N * sizeof(T);
   size_t G1 = G * sizeof(T);
 
-  T *aD, *xD, aH[GRID_LIMIT];
+  T *aD, *xD, aH[G];
   TRY( cudaMalloc(&aD, G1) );
   TRY( cudaMalloc(&xD, N1) );
   TRY( cudaMemcpy(xD, x, N1, cudaMemcpyHostToDevice) );
 
   T a = T();
   float t = measureDuration([&] {
-    sumKernel<<<G, B>>>(aD, xD, N);
+    sumMemcpyCu(aD, xD, N);
     TRY( cudaMemcpy(aH, aD, G1, cudaMemcpyDeviceToHost) );
-    a = sumLoop(aH, G);
+    a = sumLoop(aH, reduceSizeCu(N));
   }, o.repeat);
 
   TRY( cudaFree(aD) );
@@ -66,6 +87,36 @@ SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
 }
 
 template <class T>
-SumResult<T> sumCuda(const vector<T>& x, const SumOptions& o={}) {
-  return sumCuda(x.data(), x.size(), o);
+SumResult<T> sumMemcpyCuda(const vector<T>& x, const SumOptions& o={}) {
+  return sumMemcpyCuda(x.data(), x.size(), o);
+}
+
+
+
+
+template <class T>
+SumResult<T> sumInplaceCuda(const T *x, int N, const SumOptions& o={}) {
+  const int G = GRID_DIM_RI;
+  size_t N1 = N * sizeof(T);
+  size_t G1 = G * sizeof(T);
+
+  T *aD, *xD;
+  TRY( cudaMalloc(&aD, G1) );
+  TRY( cudaMalloc(&xD, N1) );
+  TRY( cudaMemcpy(xD, x, N1, cudaMemcpyHostToDevice) );
+
+  T a = T();
+  float t = measureDuration([&] {
+    sumInplaceCu(aD, xD, N);
+  }, o.repeat);
+  TRY( cudaMemcpy(&a, aD, sizeof(T), cudaMemcpyDeviceToHost) );
+
+  TRY( cudaFree(aD) );
+  TRY( cudaFree(xD) );
+  return {a, t};
+}
+
+template <class T>
+SumResult<T> sumInplaceCuda(const vector<T>& x, const SumOptions& o={}) {
+  return sumInplaceCuda(x.data(), x.size(), o);
 }

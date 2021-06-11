@@ -1,9 +1,12 @@
 #pragma once
+#include <algorithm>
 #include <cstdio>
 #include <cstdlib>
 #include <cuda_runtime.h>
 #include <cuda_profiler_api.h>
+#include "_main.hxx"
 
+using std::min;
 using std::fprintf;
 using std::exit;
 
@@ -13,9 +16,21 @@ using std::exit;
 // LAUNCH CONFIG
 // -------------
 
-// For regular data
+// Limits
 #define BLOCK_LIMIT 1024
-#define GRID_LIMIT  32768
+#define GRID_LIMIT  65535
+
+// For independent operations
+#define BLOCK_DIM_I 256
+#define GRID_DIM_I  GRID_LIMIT
+
+// For reduce operations (memcpy)
+#define BLOCK_DIM_RM 128
+#define GRID_DIM_RM  1024
+
+// For reduce operations (in-place)
+#define BLOCK_DIM_RI 256
+#define GRID_DIM_RI  1024
 
 
 
@@ -113,3 +128,15 @@ void __syncthreads();
 #ifndef __shared__
 #define __shared__
 #endif
+
+
+
+
+// REDUCE
+// ------
+
+int reduceSizeCu(int N) {
+  const int B = BLOCK_DIM_RM;
+  const int G = min(ceilDiv(N, B), GRID_DIM_RM);
+  return G;
+}
