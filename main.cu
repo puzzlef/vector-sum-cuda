@@ -9,7 +9,7 @@ using namespace std;
 
 void runSum(int N) {
   int repeat = 5;
-  vector<float> x(N);
+  vector<double> x(N);
   for (int i=0; i<N; i++)
     x[i] = 1.0/(i+1);
 
@@ -17,13 +17,13 @@ void runSum(int N) {
   auto a1 = sumSeq(x, {repeat});
   printf("[%09.3f ms] [%f] sumSeq\n", a1.time, a1.result);
 
-  // Find Σx accelerated using CUDA.
-  for (int grid=1024; grid<=GRID_LIMIT; grid*=2) {
-    for (int block=32; block<=BLOCK_LIMIT; block*=2) {
-      auto a2 = sumCuda(x, {repeat, grid, block});
-      printf("[%09.3f ms] [%f] sumCuda<<<%d, %d>>>\n", a2.time, a2.result, grid, block);
-    }
-  }
+  // Find Σx using memcpy based CUDA.
+  auto a2 = sumMemcpyCuda(x, {repeat});
+  printf("[%09.3f ms] [%f] sumMemcpyCuda\n", a2.time, a2.result);
+
+  // Find Σx using in-place based CUDA.
+  auto a3 = sumInplaceCuda(x, {repeat});
+  printf("[%09.3f ms] [%f] sumInplaceCuda\n", a3.time, a3.result);
 }
 
 
