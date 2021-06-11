@@ -3,7 +3,7 @@ const os = require('os');
 const path = require('path');
 
 const RELEMS = /^# Elements (.+)/m;
-const RRESLT = /^\[(.+?) ms\] \[(.+?)\] (\w+)(?:<<<(\d+), (\d+)>>>)?/m;
+const RRESLT = /^\[(.+?) ms\] \[(.+?)\] (\w+)/m;
 
 
 
@@ -49,13 +49,11 @@ function readLogLine(ln, data, state) {
     state = {elements};
   }
   else if (RRESLT.test(ln)) {
-    var [, time, sum, technique, grid_limit, block_size] = RRESLT.exec(ln);
+    var [, time, sum, technique] = RRESLT.exec(ln);
     data.get(state.elements).push(Object.assign({}, state, {
       time:       parseFloat(time),
       sum:        parseFloat(sum),
-      technique,
-      grid_limit: parseFloat(grid_limit||'0'),
-      block_size: parseFloat(block_size||'0')
+      technique
     }));
   }
   return state;

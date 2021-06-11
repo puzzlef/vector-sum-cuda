@@ -19,7 +19,25 @@ here. Some [charts] are also included below, generated from [sheets].
 $ nvcc -std=c++17 -Xcompiler -O3 main.cu
 $ ./a.out
 
-# ...
+# # Elements 1e+06
+# [00001.816 ms] [14.392727] sumSeq
+# [00000.040 ms] [14.392727] sumMemcpyCuda
+# [00000.009 ms] [14.392727] sumInplaceCuda
+#
+# # Elements 1e+07
+# [00015.018 ms] [16.695311] sumSeq
+# [00000.122 ms] [16.695311] sumMemcpyCuda
+# [00000.011 ms] [16.695311] sumInplaceCuda
+#
+# # Elements 1e+08
+# [00159.594 ms] [18.997896] sumSeq
+# [00001.002 ms] [18.997896] sumMemcpyCuda
+# [00000.011 ms] [18.997896] sumInplaceCuda
+#
+# # Elements 1e+09
+# [01611.637 ms] [21.300482] sumSeq
+# [00009.978 ms] [21.300482] sumMemcpyCuda
+# [00000.035 ms] [21.300482] sumInplaceCuda
 ```
 
 [![](https://i.imgur.com/U9U5Vbm.gif)][sheets]
