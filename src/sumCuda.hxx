@@ -108,6 +108,7 @@ SumResult<T> sumInplaceCuda(const T *x, int N, const SumOptions& o={}) {
   T a = T();
   float t = measureDuration([&] {
     sumInplaceCu(aD, xD, N);
+    TRY( cudaDeviceSynchronize() );
   }, o.repeat);
   TRY( cudaMemcpy(&a, aD, sizeof(T), cudaMemcpyDeviceToHost) );
 

@@ -20,16 +20,16 @@ using std::exit;
 #define BLOCK_LIMIT 1024
 #define GRID_LIMIT  65535
 
-// For independent operations
-#define BLOCK_DIM_I 256
-#define GRID_DIM_I  GRID_LIMIT
+// For map-like operations
+#define BLOCK_DIM_M 256
+#define GRID_DIM_M  GRID_LIMIT
 
-// For reduce operations (memcpy)
+// For reduce-like operations (memcpy)
 #define BLOCK_DIM_RM 128
 #define GRID_DIM_RM  1024
 
-// For reduce operations (in-place)
-#define BLOCK_DIM_RI 256
+// For reduce-like operations (in-place)
+#define BLOCK_DIM_RI 128
 #define GRID_DIM_RI  1024
 
 
