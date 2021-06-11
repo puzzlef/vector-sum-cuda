@@ -9,7 +9,7 @@ is `1024`) or 3 kernel calls (otherwise). A `block_size` of `128`
 (decent choice for sum) is used for *2nd* kernel, if there are 3 kernels.
 Sum here represents any reduction operation that processes several values
 to a single value. Using a `grid_limit` of **1024** and a `block_size` of
-**256** could be a decent choice.
+**128** could be a decent choice.
 
 All outputs are saved in [out](out/) and a small part of the output is listed
 here. Some [charts] are also included below, generated from [sheets].
@@ -62,7 +62,10 @@ $ ./a.out
 # [00004.490 ms] [21.300482] sumCuda<<<32768, 1024>>>
 ```
 
-[![](https://i.imgur.com/M3FPYUc.gif)][sheets]
+[![](https://i.imgur.com/CWySswQ.gif)][sheets]
+[![](https://i.imgur.com/o3mYdbR.gif)][sheets]
+[![](https://i.imgur.com/jGqYBwP.gif)][sheets]
+[![](https://i.imgur.com/ktH8eSd.gif)][sheets]
 
 <br>
 <br>
