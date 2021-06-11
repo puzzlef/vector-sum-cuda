@@ -67,6 +67,7 @@ SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
       sumKernel<<<G, B>>>(aD, xD, N);
       sumKernel<<<1, G>>>(aD, aD, G);
     }
+    TRY( cudaDeviceSynchronize() );
   }, o.repeat);
   TRY( cudaMemcpy(&a, aD, sizeof(T), cudaMemcpyDeviceToHost) );
 
