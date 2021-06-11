@@ -4,8 +4,7 @@ A floating-point vector `x`, with no. of **elements** `1E+6` to `1E+9` was
 summed up using CUDA (`Σx`). Each no. of elements was attempted with both
 approaches, running each approach 5 times to get a good time measure. Sum
 here represents any reduction operation that processes several values to a
-single value. If the sum result needs to be used by the GPU in a further
-step, **in-place** sum is clearly **much faster** than *memcpy* approach.
+single value. It appears both approaches have **similar** performance.
 
 All outputs are saved in [out](out/) and a small part of the output is listed
 here. Some [charts] are also included below, generated from [sheets].
@@ -37,7 +36,7 @@ $ ./a.out
 # [00009.911 ms] [21.300482] sumInplaceCuda
 ```
 
-[![](https://i.imgur.com/LzKB9Gh.gif)][sheets]
+[![](https://i.imgur.com/rJNTBF3.gif)][sheets]
 
 <br>
 <br>
@@ -50,7 +49,7 @@ $ ./a.out
 <br>
 <br>
 
-[![](https://i.imgur.com/ZCtUOgH.jpg)](https://www.youtube.com/watch?v=-DynbmAehL8)
+[![](https://i.imgur.com/FIv7piL.jpg)](https://www.youtube.com/watch?v=Zf8xRNO1xIU)
 
 [memcpy]: https://github.com/puzzlef/sum-cuda-memcpy-adjust-launch
 [in-place]: https://github.com/puzzlef/sum-cuda-inplace-adjust-launch
