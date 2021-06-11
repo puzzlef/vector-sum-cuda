@@ -22,7 +22,7 @@ __device__ void sumKernelReduce(T* a, int N, int i) {
 
 
 template <class T>
-__device__ T sumKernelLoop(T *x, int N, int i, int DI) {
+__device__ T sumKernelLoop(const T *x, int N, int i, int DI) {
   T a = T();
   for (; i<N; i+=DI)
     a += x[i];
@@ -31,7 +31,7 @@ __device__ T sumKernelLoop(T *x, int N, int i, int DI) {
 
 
 template <class T>
-__global__ void sumKernel(T *a, T *x, int N) {
+__global__ void sumKernel(T *a, const T *x, int N) {
   DEFINE(t, b, B, G);
   __shared__ T cache[BLOCK_LIMIT];
   cache[t] = sumKernelLoop(x, N, B*b+t, G*B);
@@ -41,14 +41,14 @@ __global__ void sumKernel(T *a, T *x, int N) {
 
 
 template <class T>
-void sumMemcpyCu(T *a, T *x, int N) {
+void sumMemcpyCu(T *a, const T *x, int N) {
   int B = BLOCK_DIM_RM;
   int G = min(ceilDiv(N, B), GRID_DIM_RM);
   sumKernel<<<G, B>>>(a, x, N);
 }
 
 template <class T>
-void sumInplaceCu(T *a, T *x, int N) {
+void sumInplaceCu(T *a, const T *x, int N) {
   int B = BLOCK_DIM_RI;
   int G = min(ceilDiv(N, B), GRID_DIM_RI);
   sumKernel<<<G, B>>>(a, x, N);
@@ -56,7 +56,7 @@ void sumInplaceCu(T *a, T *x, int N) {
 }
 
 template <class T>
-void sumCu(T *a, T *x, int N) {
+void sumCu(T *a, const T *x, int N) {
   sumInplaceCu(a, x, N);
 }
 
