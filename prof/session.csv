@@ -1,0 +1,184 @@
+Property,Value
+Executable,/home/subhajit/Documents/sum-cuda-adjust-launch/a.out
+Working Directory,
+Command Line Arguments,1
+Environment,
+Activity Type,Profile
+Replay Mode,Kernel
+Enable NVTX Support,No
+Disable Profiling Start/Stop,No
+Enable Profiling From Start,Yes
+Clock Control,Base
+Kernel Regex,
+Kernel Regex Base,Function
+Kernel ID,
+Launch Skip Count,0
+Launch Skip Before Match Count,0
+Launch Capture Count,0
+Sampling Automatic Interval,1
+Sampling Interval,5
+Sampling Maximum Passes,5
+Sampling Buffer Size,33554432
+Apply Rules,Yes
+Metrics,
+Property,Value
+Created,2021-Jul-08 18:51:33
+Host Name,indus
+Host OS,Linux - #1 SMP Wed Apr 28 21:49:45 UTC 2021
+Host Architecture,x86_64
+Host Processor,"Intel(R) Xeon(R) Silver 4116 CPU @ 2.10GHz""""stepping	: 4""""microcode	: 0x2006a0a""""cpu MHz		: 2100.000""""cache size	: 16896 KB""""physical id	: 0""""siblings	: 24""""core id		: 0""""cpu cores	: 12""""apicid		: 0""""initial apicid	: 0""""fpu		: yes""""fpu_exception	: yes""""cpuid level	: 22""""wp		: yes""""flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb cat_l3 cdp_l3 invpcid_single intel_ppin intel_pt ssbd mba ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflu"
+Target Name,indus
+Target OS,Linux - #1 SMP Wed Apr 28 21:49:45 UTC 2021
+Target Architecture,x86_64
+Target Processor,"Intel(R) Xeon(R) Silver 4116 CPU @ 2.10GHz""""stepping	: 4""""microcode	: 0x2006a0a""""cpu MHz		: 2100.000""""cache size	: 16896 KB""""physical id	: 0""""siblings	: 24""""core id		: 0""""cpu cores	: 12""""apicid		: 0""""initial apicid	: 0""""fpu		: yes""""fpu_exception	: yes""""cpuid level	: 22""""wp		: yes""""flags		: fpu vme de pse tsc msr pae mce cx8 apic sep mtrr pge mca cmov pat pse36 clflush dts acpi mmx fxsr sse sse2 ss ht tm pbe syscall nx pdpe1gb rdtscp lm constant_tsc art arch_perfmon pebs bts rep_good nopl xtopology nonstop_tsc aperfmperf eagerfpu pni pclmulqdq dtes64 monitor ds_cpl vmx smx est tm2 ssse3 sdbg fma cx16 xtpr pdcm pcid dca sse4_1 sse4_2 x2apic movbe popcnt tsc_deadline_timer aes xsave avx f16c rdrand lahf_lm abm 3dnowprefetch epb cat_l3 cdp_l3 invpcid_single intel_ppin intel_pt ssbd mba ibrs ibpb stibp tpr_shadow vnmi flexpriority ept vpid fsgsbase tsc_adjust bmi1 hle avx2 smep bmi2 erms invpcid rtm cqm mpx rdt_a avx512f avx512dq rdseed adx smap clflu"
+CUDA Version,11.3
+Display Driver Version,465.19.01
+PerfWorks,0.108.5
+Nsight Compute Target,2020.3.1.0 (build 29567428) (public-release)
+Attribute,NVIDIA Tesla V100-PCIE-16GB (0)
+architecture,320
+async_engine_count,7
+can_flush_remote_writes,0
+can_map_host_memory,1
+can_tex2d_gather,1
+can_use_64_bit_stream_mem_ops,0
+can_use_host_pointer_for_registered_mem,1
+can_use_stream_mem_ops,0
+can_use_stream_wait_value_nor,0
+chip,320
+clock_rate,1380000
+compute_capability_major,7
+compute_capability_minor,0
+compute_mode,0
+compute_preemption_supported,1
+concurrent_kernels,1
+concurrent_managed_access,1
+cooperative_launch,1
+cooperative_multi_device_launch,1
+device_index,0
+direct_managed_mem_access_from_host,0
+display_name,NVIDIA Tesla V100-PCIE-16GB
+ecc_enabled,1
+fb_bus_width,4096
+fbp_count,8
+generic_compression_supported,0
+global_l1_cache_supported,1
+global_memory_bus_width,4096
+gpu_direct_rdma_with_cuda_vmm_supported,1
+gpu_overlap,1
+gpu_pci_device_id,498340062
+gpu_pci_ext_device_id,7604
+gpu_pci_ext_downstream_link_rate,8000
+gpu_pci_ext_downstream_link_width,16
+gpu_pci_ext_gen,2
+gpu_pci_ext_gpu_gen,2
+gpu_pci_ext_gpu_link_rate,8000
+gpu_pci_ext_gpu_link_width,16
+gpu_pci_revision_id,161
+gpu_pci_sub_system_id,303304926
+handle_type_posix_file_descriptor_supported,1
+handle_type_win32_handle_supported,0
+handle_type_win32_kmt_handle_supported,0
+host_native_atomic_supported,0
+host_register_supported,1
+implementation,320
+integrated,0
+kernel_exec_timeout,0
+l2_cache_size,6291456
+l2s_count,64
+limits_max_cta_per_sm,32
+local_l1_cache_supported,1
+managed_memory,1
+max_access_policy_window_size,0
+max_block_dim_x,1024
+max_block_dim_y,1024
+max_block_dim_z,64
+max_blocks_per_multiprocessor,32
+max_gpu_frequency_khz,1380000
+max_grid_dim_x,2147483647
+max_grid_dim_y,65535
+max_grid_dim_z,65535
+max_ipc_per_multiprocessor,4
+max_ipc_per_scheduler,1
+max_mem_frequency_khz,877000
+max_persisting_l2_cache_size,0
+max_pitch,2147483647
+max_registers_per_block,65536
+max_registers_per_multiprocessor,65536
+max_registers_per_thread,255
+max_shared_memory_per_block,49152
+max_shared_memory_per_block_optin,98304
+max_shared_memory_per_multiprocessor,98304
+max_threads_per_block,1024
+max_threads_per_multiprocessor,2048
+max_warps_per_multiprocessor,64
+max_warps_per_scheduler,16
+maximum_surface1d_layered_layers,2048
+maximum_surface1d_layered_width,32768
+maximum_surface1d_width,32768
+maximum_surface2d_height,65536
+maximum_surface2d_layered_height,32768
+maximum_surface2d_layered_layers,2048
+maximum_surface2d_layered_width,32768
+maximum_surface2d_width,131072
+maximum_surface3d_depth,16384
+maximum_surface3d_height,16384
+maximum_surface3d_width,16384
+maximum_surfacecubemap_layered_layers,2046
+maximum_surfacecubemap_layered_width,32768
+maximum_surfacecubemap_width,32768
+maximum_texture1d_layered_layers,2048
+maximum_texture1d_layered_width,32768
+maximum_texture1d_linear_width,268435456
+maximum_texture1d_mipmapped_width,32768
+maximum_texture1d_width,131072
+maximum_texture2d_gather_height,32768
+maximum_texture2d_gather_width,32768
+maximum_texture2d_height,65536
+maximum_texture2d_layered_height,32768
+maximum_texture2d_layered_layers,2048
+maximum_texture2d_layered_width,32768
+maximum_texture2d_linear_height,65000
+maximum_texture2d_linear_pitch,2097120
+maximum_texture2d_linear_width,131072
+maximum_texture2d_mipmapped_height,32768
+maximum_texture2d_mipmapped_width,32768
+maximum_texture2d_width,131072
+maximum_texture3d_depth,16384
+maximum_texture3d_depth_alternate,32768
+maximum_texture3d_height,16384
+maximum_texture3d_height_alternate,8192
+maximum_texture3d_width,16384
+maximum_texture3d_width_alternate,8192
+maximum_texturecubemap_layered_layers,2046
+maximum_texturecubemap_layered_width,32768
+maximum_texturecubemap_width,32768
+memory_clock_rate,877000
+memory_pools_supported,1
+multi_gpu_board,0
+multi_gpu_board_group_id,0
+multiprocessor_count,80
+num_l2s_per_fbp,8
+num_schedulers_per_multiprocessor,4
+num_tex_per_multiprocessor,1
+pageable_memory_access,0
+pageable_memory_access_uses_host_page_tables,0
+pci_bus_id,59
+pci_device_id,0
+pci_domain_id,0
+ram_location,1
+ram_type,15
+reserved_shared_memory_per_block,0
+sass_level,7
+single_to_double_precision_perf_ratio,2
+sparse_cuda_array_supported,1
+stream_priorities_supported,1
+surface_alignment,512
+tcc_driver,0
+texture_alignment,512
+texture_pitch_alignment,32
+total_constant_memory,65536
+total_memory,16945512448
+unified_addressing,1
+virtual_address_management_supported,1
+warp_size,32

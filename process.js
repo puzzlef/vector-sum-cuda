@@ -4,6 +4,8 @@ const path = require('path');
 
 const RELEMS = /^# Elements (.+)/m;
 const RRESLT = /^\[(.+?) ms\] \[(.+?)\] (\w+)(?:<<<(\d+), (\d+)>>>)?/m;
+const RPSUMM = /^(.+?),(.+?),(.+?),(.+?),"(.+?)",(.+?),(.+?),(.+)/m;
+const RPTECH = /^sumCuda/m;
 
 
 
@@ -74,6 +76,51 @@ function readLog(pth) {
 
 
 
+// *-PROF
+// ------
+
+function readProfLine(ln, data, state) {
+  if (RPSUMM.test(ln)) {
+    var [, id, time, api_call_id, function_name, demangled_name,
+      device_name, sol_sm_percent, sol_memory_percent] = RPSUMM.exec(ln);
+    if (state==null) {
+      var group = 'all';
+      if (!data.has(group)) data.set(group, []);
+      state = {group};
+    }
+    if (id!=='ID') data.get(state.group).push(Object.assign({}, state, {
+      id:                 parseFloat(id),
+      time,
+      api_call_id:        parseFloat(api_call_id),
+      function_name,
+      demangled_name,
+      device_name,
+      sol_sm_percent:     parseFloat(sol_sm_percent),
+      sol_memory_percent: parseFloat(sol_memory_percent),
+    }));
+  }
+  return state;
+}
+
+function profFields(r) {
+  var sol_sm_percent     = r? r.sol_sm_percent : 0;
+  var sol_memory_percent = r? r.sol_memory_percent : 0;
+  return {sol_sm_percent, sol_memory_percent};
+}
+
+function readProf(pth) {
+  var text = readFile(pth);
+  var lines = text.split('\n');
+  var data = new Map();
+  var state = null;
+  for (var ln of lines)
+    state = readProfLine(ln, data, state);
+  return data;
+}
+
+
+
+
 // PROCESS-*
 // ---------
 
@@ -85,13 +132,32 @@ function processCsv(data) {
 }
 
 
+function processProf(data, prof) {
+  var prows = prof.get('all'), i = 0;
+  for (var rows of data.values()) {
+    for (var r of rows) {
+      var pr = RPTECH.test(r.technique)? prows[i++] : null;
+      Object.assign(r, profFields(pr));
+    }
+  }
+  return data;
+}
+
+
 
 
 // MAIN
 // ----
 
-function main(cmd, log, out) {
+function readInput(inp) {
+  var [log, prof] = inp.split('+');
   var data = readLog(log);
+  if (prof) processProf(data, readProf(prof));
+  return data;
+}
+
+function main(cmd, inp, out) {
+  var data = readInput(inp);
   if (path.extname(out)==='') cmd += '-dir';
   switch (cmd) {
     case 'csv':

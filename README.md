@@ -11,7 +11,9 @@ the result can be used within GPU itself, it might be faster to calculate
 complete sum [in-place] instead of transferring to CPU.
 
 All outputs are saved in [out](out/) and a small part of the output is listed
-here. Some [charts] are also included below, generated from [sheets].
+here. [Nsight Compute] profile results are saved in [prof](prof/). Some [charts]
+are also included below, generated from [sheets]. This experiment was done with
+guidance from [Prof. Dip Sankar Banerjee] and [Prof. Kishore Kothapalli].
 
 <br>
 
@@ -61,10 +63,14 @@ $ ./a.out
 # [00004.579 ms] [21.300436] sumCuda<<<32768, 1024>>>
 ```
 
-[![](https://i.imgur.com/U9U5Vbm.gif)][sheets]
-[![](https://i.imgur.com/lDw866b.gif)][sheets]
-[![](https://i.imgur.com/5JsrM6E.gif)][sheets]
-[![](https://i.imgur.com/CAJ8wwT.gif)][sheets]
+[![](https://i.imgur.com/EseR7Oa.gif)][sheets]
+[![](https://i.imgur.com/8TCXC0q.gif)][sheets]
+[![](https://i.imgur.com/AmQEavQ.gif)][sheets]
+[![](https://i.imgur.com/U9YlVC4.gif)][sheets]
+[![](https://i.imgur.com/ZLqcgXy.gif)][sheets]
+[![](https://i.imgur.com/HOx7ppf.gif)][sheets]
+[![](https://i.imgur.com/OU4iUc5.gif)][sheets]
+[![](https://i.imgur.com/yDIzLIW.gif)][sheets]
 
 <br>
 <br>
@@ -72,13 +78,16 @@ $ ./a.out
 
 ## References
 
-- [CUDA by Example :: Jason Sanders, Edward Kandrot](http://www.mat.unimi.it/users/sansotte/cuda/CUDA_by_Example.pdf)
+- [CUDA by Example :: Jason Sanders, Edward Kandrot](https://www.slideshare.net/SubhajitSahu/cuda-by-example-notes)
 
 <br>
 <br>
 
 [![](https://i.imgur.com/SrEEKD5.png)](https://www.youtube.com/watch?v=vTdodyhhjww)
 
+[Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
+[Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
+[Nsight Compute]: https://developer.nvidia.com/nsight-compute
 [in-place]: https://github.com/puzzlef/sum-cuda-inplace-adjust-launch
 [charts]: https://photos.app.goo.gl/Jytw1qgSFPoTrL1FA
-[sheets]: https://docs.google.com/spreadsheets/d/1F2L2ro1rOO-ZSNcXnhVDJqltwNfg2lSoh8WlqQ-YMw8/edit?usp=sharing
+[sheets]: https://docs.google.com/spreadsheets/d/1jNNg43h19DUNwdwQVkOsLe5Dq-f_MfIbzaGG1pai4SU/edit?usp=sharing
