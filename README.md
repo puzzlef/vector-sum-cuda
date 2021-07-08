@@ -1,4 +1,5 @@
-Comparing various launch configs for CUDA based vector element sum (in-place).
+Comparing various launch configs for CUDA based **vector element sum**
+(**in-place**).
 
 A floating-point vector `x`, with no. of **elements** `1E+6` to `1E+9` was
 summed up using CUDA (`Σx`). Each no. of elements was attempted with
@@ -12,7 +13,9 @@ to a single value. Using a `grid_limit` of **1024** and a `block_size` of
 **128** could be a decent choice.
 
 All outputs are saved in [out](out/) and a small part of the output is listed
-here. Some [charts] are also included below, generated from [sheets].
+here. Some [charts] are also included below, generated from [sheets]. This
+experiment was done with guidance from [Prof. Dip Sankar Banerjee] and
+[Prof. Kishore Kothapalli].
 
 <br>
 
@@ -73,12 +76,14 @@ $ ./a.out
 
 ## References
 
-- [CUDA by Example :: Jason Sanders, Edward Kandrot](http://www.mat.unimi.it/users/sansotte/cuda/CUDA_by_Example.pdf)
+- [CUDA by Example :: Jason Sanders, Edward Kandrot](https://www.slideshare.net/SubhajitSahu/cuda-by-example-notes)
 
 <br>
 <br>
 
-[![](https://i.imgur.com/cbgBvPJ.png)](https://www.youtube.com/watch?v=vTdodyhhjww)
+[![](https://i.imgur.com/SrEEKD5.png)](https://www.youtube.com/watch?v=vTdodyhhjww)
 
+[Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
+[Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
 [charts]: https://photos.app.goo.gl/795Rcbqa14srjoZBA
 [sheets]: https://docs.google.com/spreadsheets/d/1pgIn6dcrKtVv0SoaJeQwTe1CzHRKuoUOXjn5_KJqrA8/edit?usp=sharing

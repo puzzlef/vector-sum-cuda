@@ -1,4 +1,5 @@
 #include <vector>
+#include <string>
 #include <cstdio>
 #include "src/main.hxx"
 
@@ -7,8 +8,7 @@ using namespace std;
 
 
 
-void runSum(int N) {
-  int repeat = 5;
+void runSum(int N, int repeat) {
   vector<float> x(N);
   for (int i=0; i<N; i++)
     x[i] = 1.0/(i+1);
@@ -28,9 +28,10 @@ void runSum(int N) {
 
 
 int main(int argc, char **argv) {
+  int repeat = argc>1? stoi(argv[1]) : 5;
   for (int n=1000000; n<=1000000000; n*=10) {
     printf("# Elements %.0e\n", (double) n);
-    runSum(n);
+    runSum(n, repeat);
     printf("\n");
   }
   return 0;
