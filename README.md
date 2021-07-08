@@ -1,13 +1,15 @@
-Performance of [memcpy] vs [in-place] based CUDA based vector element sum.
+Performance of [memcpy] vs [in-place] based CUDA based **vector element sum**.
 
 A floating-point vector `x`, with no. of **elements** `1E+6` to `1E+9` was
 summed up using CUDA (`Σx`). Each no. of elements was attempted with both
 approaches, running each approach 5 times to get a good time measure. Sum
 here represents any reduction operation that processes several values to a
-single value. It appears both approaches have **similar** performance.
+single value. It appears **both approaches** have **similar** performance.
 
 All outputs are saved in [out](out/) and a small part of the output is listed
-here. Some [charts] are also included below, generated from [sheets].
+here. Some [charts] are also included below, generated from [sheets]. This
+experiment was done with guidance from [Prof. Dip Sankar Banerjee] and
+[Prof. Kishore Kothapalli].
 
 <br>
 
@@ -44,13 +46,15 @@ $ ./a.out
 
 ## References
 
-- [CUDA by Example :: Jason Sanders, Edward Kandrot](http://www.mat.unimi.it/users/sansotte/cuda/CUDA_by_Example.pdf)
+- [CUDA by Example :: Jason Sanders, Edward Kandrot](https://www.slideshare.net/SubhajitSahu/cuda-by-example-notes)
 
 <br>
 <br>
 
 [![](https://i.imgur.com/FIv7piL.jpg)](https://www.youtube.com/watch?v=Zf8xRNO1xIU)
 
+[Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
+[Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
 [memcpy]: https://github.com/puzzlef/sum-cuda-memcpy-adjust-launch
 [in-place]: https://github.com/puzzlef/sum-cuda-inplace-adjust-launch
 [charts]: https://photos.app.goo.gl/a8PM8K1FXPm1LQed8
