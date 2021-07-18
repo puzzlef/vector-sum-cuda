@@ -100,6 +100,7 @@ SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
   TRY( cudaMemcpy(&a, aD, sizeof(T), cudaMemcpyDeviceToHost) );
 
   TRY( cudaFree(aD) );
+  TRY( cudaFree(bD) );
   TRY( cudaFree(xD) );
   return {a, t};
 }
