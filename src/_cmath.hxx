@@ -4,6 +4,7 @@
 
 using std::is_floating_point;
 using std::ceil;
+using std::log2;
 
 
 
