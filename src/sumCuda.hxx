@@ -37,7 +37,7 @@ __global__ void sumKernel(T *a, T *x, int N) {
 
   cache[t] = sumKernelLoop(x, N, B*b+t, G*B);
   sumKernelReduce(cache, B, t);
-  if (t == 0) a[b] = cache[0];
+  if (t==0) atomicAdd(a, cache[0]);
 }
 
 
@@ -45,28 +45,17 @@ template <class T>
 SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
   int B = o.blockSize;
   int G = min(ceilDiv(N, B), o.gridLimit);
-  int C = 128; // decent sum threads
-  int H = min(ceilDiv(G, C), BLOCK_LIMIT);
   size_t N1 = N * sizeof(T);
-  size_t G1 = G * sizeof(T);
+  size_t A1 = 1 * sizeof(T);
 
-  T *aD, *bD, *xD;
-  TRY( cudaMalloc(&aD, G1) );
-  TRY( cudaMalloc(&bD, G1) );
+  T *aD, *xD;
+  TRY( cudaMalloc(&aD, A1) );
   TRY( cudaMalloc(&xD, N1) );
   TRY( cudaMemcpy(xD, x, N1, cudaMemcpyHostToDevice) );
 
   T a = T();
   float t = measureDuration([&] {
-    if (G>BLOCK_LIMIT) {
-      sumKernel<<<G, B>>>(bD, xD, N);
-      sumKernel<<<H, C>>>(aD, bD, G);
-      sumKernel<<<1, H>>>(aD, aD, H);
-    }
-    else {
-      sumKernel<<<G, B>>>(aD, xD, N);
-      sumKernel<<<1, G>>>(aD, aD, G);
-    }
+    sumKernel<<<G, B>>>(aD, xD, N);
     TRY( cudaDeviceSynchronize() );
   }, o.repeat);
   TRY( cudaMemcpy(&a, aD, sizeof(T), cudaMemcpyDeviceToHost) );
