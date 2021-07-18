@@ -9,7 +9,7 @@ using namespace std;
 
 
 void runSum(int N, int repeat) {
-  vector<float> x(N);
+  vector<double> x(N);
   for (int i=0; i<N; i++)
     x[i] = 1.0/(i+1);
 
