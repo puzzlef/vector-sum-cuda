@@ -15,7 +15,7 @@ template <class T>
 __device__ void sumKernelReduce(T* a, int N, int i) {
   __syncthreads();
   for (N=N/2; N>0; N/=2) {
-    if (i < N) a[i] += a[N+i];
+    if (i<N) a[i] += a[N+i];
     __syncthreads();
   }
 }
@@ -30,27 +30,28 @@ __device__ T sumKernelLoop(const T *x, int N, int i, int DI) {
 }
 
 
-template <class T>
+template <class T, int C=BLOCK_LIMIT>
 __global__ void sumKernel(T *a, const T *x, int N) {
   DEFINE(t, b, B, G);
-  __shared__ T cache[BLOCK_LIMIT];
+  __shared__ T cache[C];
+
   cache[t] = sumKernelLoop(x, N, B*b+t, G*B);
   sumKernelReduce(cache, B, t);
-  if (t == 0) a[b] = cache[0];
+  if (t==0) a[b] = cache[0];
 }
 
 
 template <class T>
 void sumMemcpyCu(T *a, const T *x, int N) {
-  int B = BLOCK_DIM_RM;
-  int G = min(ceilDiv(N, B), GRID_DIM_RM);
+  const int B = BLOCK_DIM_R<T>();
+  const int G = min(ceilDiv(N, B), GRID_DIM_R<T>());
   sumKernel<<<G, B>>>(a, x, N);
 }
 
 template <class T>
 void sumInplaceCu(T *a, const T *x, int N) {
-  int B = BLOCK_DIM_RI;
-  int G = min(ceilDiv(N, B), GRID_DIM_RI);
+  const int B = BLOCK_DIM_R<T>();
+  const int G = min(ceilDiv(N, B), GRID_DIM_R<T>());
   sumKernel<<<G, B>>>(a, x, N);
   sumKernel<<<1, G>>>(a, a, G);
 }
@@ -65,7 +66,7 @@ void sumCu(T *a, const T *x, int N) {
 
 template <class T>
 SumResult<T> sumMemcpyCuda(const T *x, int N, const SumOptions& o={}) {
-  const int G = GRID_DIM_RM;
+  const int G = GRID_DIM_R<T>();
   size_t N1 = N * sizeof(T);
   size_t G1 = G * sizeof(T);
 
@@ -78,7 +79,7 @@ SumResult<T> sumMemcpyCuda(const T *x, int N, const SumOptions& o={}) {
   float t = measureDuration([&] {
     sumMemcpyCu(aD, xD, N);
     TRY( cudaMemcpy(aH, aD, G1, cudaMemcpyDeviceToHost) );
-    a = sumLoop(aH, reduceSizeCu(N));
+    a = sumLoop(aH, reduceSizeCu<T>(N));
   }, o.repeat);
 
   TRY( cudaFree(aD) );
@@ -96,7 +97,7 @@ SumResult<T> sumMemcpyCuda(const vector<T>& x, const SumOptions& o={}) {
 
 template <class T>
 SumResult<T> sumInplaceCuda(const T *x, int N, const SumOptions& o={}) {
-  const int G = GRID_DIM_RI;
+  const int G = GRID_DIM_R<T>();
   size_t N1 = N * sizeof(T);
   size_t G1 = G * sizeof(T);
 

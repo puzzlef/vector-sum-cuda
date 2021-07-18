@@ -24,13 +24,11 @@ using std::exit;
 #define BLOCK_DIM_M 256
 #define GRID_DIM_M  GRID_LIMIT
 
-// For reduce-like operations (memcpy)
-#define BLOCK_DIM_RM 128
-#define GRID_DIM_RM  1024
-
-// For reduce-like operations (in-place)
-#define BLOCK_DIM_RI 128
-#define GRID_DIM_RI  1024
+// For reduce-like operations
+template <class T>
+constexpr int BLOCK_DIM_R() noexcept { return sizeof(T)<=4? 128:256; }
+template <class T>
+constexpr int GRID_DIM_R() noexcept { return 1024; }
 
 
 
@@ -135,8 +133,9 @@ void __syncthreads();
 // REDUCE
 // ------
 
+template <class T>
 int reduceSizeCu(int N) {
-  int B = BLOCK_DIM_RM;
-  int G = min(ceilDiv(N, B), GRID_DIM_RM);
+  int B = BLOCK_DIM_R<T>();
+  int G = min(ceilDiv(N, B), GRID_DIM_R<T>());
   return G;
 }

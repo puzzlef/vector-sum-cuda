@@ -47,6 +47,7 @@ $ ./a.out
 ## References
 
 - [CUDA by Example :: Jason Sanders, Edward Kandrot](https://www.slideshare.net/SubhajitSahu/cuda-by-example-notes)
+- [Unspecified launch failure on Memcpy](https://stackoverflow.com/a/27278218/1413259)
 
 <br>
 <br>
