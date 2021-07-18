@@ -10,12 +10,12 @@ is `1024`) or 3 kernel calls (otherwise). A `block_size` of `128`
 (decent choice for sum) is used for *2nd* kernel, if there are 3 kernels.
 Sum here represents any reduction operation that processes several values
 to a single value. Using a `grid_limit` of **1024** and a `block_size` of
-**128** could be a decent choice.
+**128** could be a decent choice (for float).
 
 All outputs are saved in [out](out/) and a small part of the output is listed
-here. Some [charts] are also included below, generated from [sheets]. This
-experiment was done with guidance from [Prof. Dip Sankar Banerjee] and
-[Prof. Kishore Kothapalli].
+here. Some [charts] are also included below, generated from [sheets]. For
+related experiments, see [branches]. This experiment was done with guidance
+from [Prof. Dip Sankar Banerjee] and [Prof. Kishore Kothapalli].
 
 <br>
 
@@ -85,5 +85,6 @@ $ ./a.out
 
 [Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
 [Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
+[branches]: https://github.com/puzzlef/sum-cuda-inplace-adjust-launch/branches
 [charts]: https://photos.app.goo.gl/795Rcbqa14srjoZBA
 [sheets]: https://docs.google.com/spreadsheets/d/1pgIn6dcrKtVv0SoaJeQwTe1CzHRKuoUOXjn5_KJqrA8/edit?usp=sharing
