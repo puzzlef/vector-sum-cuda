@@ -10,8 +10,9 @@ is `1024`) or 3 kernel calls (otherwise). A `block_size` of `128`
 (decent choice for sum) is used for *2nd* kernel, if there are 3 kernels.
 Sum here represents any reduction operation that processes several values
 to a single value. Using a `grid_limit` of **1024** and a `block_size` of
-**128** could be a decent choice (for float). Theere doesn't seem to be a
-good enough advantage of doing multiple reads per sum-loop.
+**128** could be a decent choice (for float). Theere doesn't seem to be
+any benefit of doing multiple reads per sum-loop in block steps (using a
+variable).
 
 All outputs are saved in [out](out/) and a small part of the output is listed
 here. Some [charts] can be generated later, if needed, also todo [sheets]. For
