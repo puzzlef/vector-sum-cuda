@@ -10,5 +10,5 @@ git clone https://github.com/puzzlef/$src
 cd $src
 
 # Run
-nvcc -std=c++17 -Xcompiler -O3 main.cu
+nvcc -arch sm_70 -std=c++17 -Xcompiler -O3 main.cu
 stdbuf --output=L ./a.out 2>&1          | tee -a "$out"
