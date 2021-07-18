@@ -22,24 +22,24 @@ __device__ void sumKernelReduce(T* a, int N, int i) {
 
 
 template <class T, int R>
-__device__ T sumKernelLoop(T *x, int N, int i, int DI) {
+__device__ T sumKernelLoop(T *x, int N, int i, int DI, int S) {
   T a = T();
-  for (; i+(R-1)*DI<N; i+=R*DI) {
+  for (; i+(R-1)*S<N; i+=DI) {
     switch (R) {
       default:
-      case 1: a += x[i+0*DI]; break;
-      case 2: a += x[i+0*DI] + x[i+1*DI]; break;
-      case 4: a += x[i+0*DI] + x[i+1*DI] + x[i+2*DI] + x[i+3*DI]; break;
+      case 1: a += x[i+0*S]; break;
+      case 2: a += x[i+0*S] + x[i+1*S]; break;
+      case 4: a += x[i+0*S] + x[i+1*S] + x[i+2*S] + x[i+3*S]; break;
     }
   }
   switch (R) {
     case 2:
-      if (i+0*DI<N) a += x[i+0*DI];
+      if (i+0*S<N) a += x[i+0*S];
       break;
     case 4:
-      if (i+0*DI<N) a += x[i+0*DI];
-      if (i+1*DI<N) a += x[i+1*DI];
-      if (i+2*DI<N) a += x[i+2*DI];
+      if (i+0*S<N) a += x[i+0*S];
+      if (i+1*S<N) a += x[i+1*S];
+      if (i+2*S<N) a += x[i+2*S];
       break;
   }
   return a;
@@ -51,7 +51,7 @@ __global__ void sumKernel(T *a, T *x, int N) {
   DEFINE(t, b, B, G);
   __shared__ T cache[BLOCK_LIMIT];
 
-  cache[t] = sumKernelLoop<T, R>(x, N, B*b+t, G*B);
+  cache[t] = sumKernelLoop<T, R>(x, N, R*B*b+t, G*R*B, B);
   sumKernelReduce(cache, B, t);
   if (t==0) a[b] = cache[0];
 }
