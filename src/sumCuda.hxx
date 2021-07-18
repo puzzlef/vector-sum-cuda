@@ -119,9 +119,9 @@ template <class T>
 SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
   int R = 1 << o.mode;
   int B = o.blockSize;
-  int G = max(prevPow2(min(ceilDiv(N, R*B), o.gridLimit)), 32);
+  int G = max(nextPow2(min(ceilDiv(N, R*B), o.gridLimit)), 32);
   int C = 128; // decent sum threads
-  int H = max(prevPow2(min(ceilDiv(G, R*C), BLOCK_LIMIT)), 32);
+  int H = max(nextPow2(min(ceilDiv(G, R*C), BLOCK_LIMIT)), 32);
   size_t N1 = N * sizeof(T);
   size_t G1 = G * sizeof(T);
 
