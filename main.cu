@@ -20,8 +20,10 @@ void runSum(int N, int repeat) {
   // Find Σx accelerated using CUDA.
   for (int grid=1024; grid<=GRID_LIMIT; grid*=2) {
     for (int block=32; block<=BLOCK_LIMIT; block*=2) {
-      auto a2 = sumCuda(x, {repeat, grid, block});
-      printf("[%09.3f ms] [%f] sumCuda<<<%d, %d>>>\n", a2.time, a2.result, grid, block);
+      for (int mode=0; mode<=2; mode++) {
+        auto a2 = sumCuda(x, {repeat, grid, block, mode});
+        printf("[%09.3f ms] [%f] sumCuda<<<%d, %d>>> [mode=%d]\n", a2.time, a2.result, grid, block, mode);
+      }
     }
   }
 }

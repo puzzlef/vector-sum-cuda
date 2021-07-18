@@ -8,9 +8,10 @@ struct SumOptions {
   int repeat;
   int gridLimit;
   int blockSize;
+  int mode;
 
-  SumOptions(int repeat=1, int gridLimit=GRID_LIMIT, int blockSize=BLOCK_LIMIT) :
-  repeat(repeat), gridLimit(gridLimit), blockSize(blockSize) {}
+  SumOptions(int repeat=1, int gridLimit=GRID_LIMIT, int blockSize=BLOCK_LIMIT, int mode=0) :
+  repeat(repeat), gridLimit(gridLimit), blockSize(blockSize), mode(mode) {}
 };
 
 template <class T>
