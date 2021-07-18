@@ -10,12 +10,13 @@ is `1024`) or 3 kernel calls (otherwise). A `block_size` of `128`
 (decent choice for sum) is used for *2nd* kernel, if there are 3 kernels.
 Sum here represents any reduction operation that processes several values
 to a single value. Using a `grid_limit` of **1024** and a `block_size` of
-**128** could be a decent choice.
+**128** could be a decent choice (for float). Theere doesn't seem to be a
+good enough advantage of doing multiple reads per sum-loop.
 
 All outputs are saved in [out](out/) and a small part of the output is listed
-here. Some [charts] are also included below, generated from [sheets]. This
-experiment was done with guidance from [Prof. Dip Sankar Banerjee] and
-[Prof. Kishore Kothapalli].
+here. Some [charts] can be generated later, if needed, also todo [sheets]. For
+related experiments, see [branches]. This experiment was done with guidance
+from [Prof. Dip Sankar Banerjee] and [Prof. Kishore Kothapalli].
 
 <br>
 
@@ -25,50 +26,117 @@ $ ./a.out
 
 # ...
 #
-# # Elements 1e+09
-# [01384.584 ms] [15.403683] sumSeq
-# [00005.794 ms] [21.299603] sumCuda<<<1024, 32>>>
-# [00004.818 ms] [21.300037] sumCuda<<<1024, 64>>>
-# [00004.508 ms] [21.300262] sumCuda<<<1024, 128>>>
-# [00004.528 ms] [21.300373] sumCuda<<<1024, 256>>>
-# [00004.623 ms] [21.300426] sumCuda<<<1024, 512>>>
-# [00004.525 ms] [21.300455] sumCuda<<<1024, 1024>>>
-# [00006.373 ms] [21.300037] sumCuda<<<2048, 32>>>
-# [00005.414 ms] [21.300262] sumCuda<<<2048, 64>>>
-# [00004.532 ms] [21.300373] sumCuda<<<2048, 128>>>
-# [00004.620 ms] [21.300426] sumCuda<<<2048, 256>>>
-# [00004.504 ms] [21.300457] sumCuda<<<2048, 512>>>
-# [00004.496 ms] [21.300468] sumCuda<<<2048, 1024>>>
-# [00005.374 ms] [21.300262] sumCuda<<<4096, 32>>>
-# [00004.875 ms] [21.300371] sumCuda<<<4096, 64>>>
-# [00004.619 ms] [21.300428] sumCuda<<<4096, 128>>>
-# [00004.524 ms] [21.300453] sumCuda<<<4096, 256>>>
-# [00004.494 ms] [21.300470] sumCuda<<<4096, 512>>>
-# [00004.494 ms] [21.300476] sumCuda<<<4096, 1024>>>
-# [00004.812 ms] [21.300371] sumCuda<<<8192, 32>>>
-# [00004.591 ms] [21.300426] sumCuda<<<8192, 64>>>
-# [00004.507 ms] [21.300455] sumCuda<<<8192, 128>>>
-# [00004.493 ms] [21.300468] sumCuda<<<8192, 256>>>
-# [00004.491 ms] [21.300476] sumCuda<<<8192, 512>>>
-# [00004.489 ms] [21.300478] sumCuda<<<8192, 1024>>>
-# [00004.678 ms] [21.300430] sumCuda<<<16384, 32>>>
-# [00004.504 ms] [21.300455] sumCuda<<<16384, 64>>>
-# [00004.495 ms] [21.300468] sumCuda<<<16384, 128>>>
-# [00004.495 ms] [21.300474] sumCuda<<<16384, 256>>>
-# [00004.488 ms] [21.300478] sumCuda<<<16384, 512>>>
-# [00004.489 ms] [21.300478] sumCuda<<<16384, 1024>>>
-# [00004.646 ms] [21.300453] sumCuda<<<32768, 32>>>
-# [00004.520 ms] [21.300468] sumCuda<<<32768, 64>>>
-# [00004.494 ms] [21.300476] sumCuda<<<32768, 128>>>
-# [00004.488 ms] [21.300480] sumCuda<<<32768, 256>>>
-# [00004.488 ms] [21.300478] sumCuda<<<32768, 512>>>
-# [00004.490 ms] [21.300482] sumCuda<<<32768, 1024>>>
+# Elements 1e+09
+# [01444.221 ms] [21.300482] sumSeq
+# [00012.183 ms] [21.300482] sumCuda<<<1024, 32>>> [mode=0]
+# [00015.230 ms] [21.300482] sumCuda<<<1024, 32>>> [mode=1]
+# [00012.050 ms] [21.300482] sumCuda<<<1024, 32>>> [mode=2]
+# [00010.874 ms] [21.300482] sumCuda<<<1024, 64>>> [mode=0]
+# [00011.919 ms] [21.300482] sumCuda<<<1024, 64>>> [mode=1]
+# [00010.756 ms] [21.300482] sumCuda<<<1024, 64>>> [mode=2]
+# [00009.945 ms] [21.300482] sumCuda<<<1024, 128>>> [mode=0]
+# [00010.899 ms] [21.300482] sumCuda<<<1024, 128>>> [mode=1]
+# [00010.186 ms] [21.300482] sumCuda<<<1024, 128>>> [mode=2]
+# [00008.997 ms] [21.300482] sumCuda<<<1024, 256>>> [mode=0]
+# [00008.985 ms] [21.300482] sumCuda<<<1024, 256>>> [mode=1]
+# [00008.980 ms] [21.300482] sumCuda<<<1024, 256>>> [mode=2]
+# [00009.228 ms] [21.300482] sumCuda<<<1024, 512>>> [mode=0]
+# [00009.201 ms] [21.300482] sumCuda<<<1024, 512>>> [mode=1]
+# [00009.260 ms] [21.300482] sumCuda<<<1024, 512>>> [mode=2]
+# [00008.999 ms] [21.300482] sumCuda<<<1024, 1024>>> [mode=0]
+# [00008.971 ms] [21.300482] sumCuda<<<1024, 1024>>> [mode=1]
+# [00008.995 ms] [21.300482] sumCuda<<<1024, 1024>>> [mode=2]
+# [00010.343 ms] [21.300482] sumCuda<<<2048, 32>>> [mode=0]
+# [00012.137 ms] [21.300482] sumCuda<<<2048, 32>>> [mode=1]
+# [00010.256 ms] [21.300482] sumCuda<<<2048, 32>>> [mode=2]
+# [00009.722 ms] [21.300482] sumCuda<<<2048, 64>>> [mode=0]
+# [00010.257 ms] [21.300482] sumCuda<<<2048, 64>>> [mode=1]
+# [00009.667 ms] [21.300482] sumCuda<<<2048, 64>>> [mode=2]
+# [00009.587 ms] [21.300482] sumCuda<<<2048, 128>>> [mode=0]
+# [00009.670 ms] [21.300482] sumCuda<<<2048, 128>>> [mode=1]
+# [00009.444 ms] [21.300482] sumCuda<<<2048, 128>>> [mode=2]
+# [00009.195 ms] [21.300482] sumCuda<<<2048, 256>>> [mode=0]
+# [00009.212 ms] [21.300482] sumCuda<<<2048, 256>>> [mode=1]
+# [00009.216 ms] [21.300482] sumCuda<<<2048, 256>>> [mode=2]
+# [00008.976 ms] [21.300482] sumCuda<<<2048, 512>>> [mode=0]
+# [00008.976 ms] [21.300482] sumCuda<<<2048, 512>>> [mode=1]
+# [00008.998 ms] [21.300482] sumCuda<<<2048, 512>>> [mode=2]
+# [00008.953 ms] [21.300482] sumCuda<<<2048, 1024>>> [mode=0]
+# [00008.964 ms] [21.300482] sumCuda<<<2048, 1024>>> [mode=1]
+# [00008.952 ms] [21.300482] sumCuda<<<2048, 1024>>> [mode=2]
+# [00009.431 ms] [21.300482] sumCuda<<<4096, 32>>> [mode=0]
+# [00010.686 ms] [21.300482] sumCuda<<<4096, 32>>> [mode=1]
+# [00009.394 ms] [21.300482] sumCuda<<<4096, 32>>> [mode=2]
+# [00009.139 ms] [21.300482] sumCuda<<<4096, 64>>> [mode=0]
+# [00009.450 ms] [21.300482] sumCuda<<<4096, 64>>> [mode=1]
+# [00009.125 ms] [21.300482] sumCuda<<<4096, 64>>> [mode=2]
+# [00009.080 ms] [21.300482] sumCuda<<<4096, 128>>> [mode=0]
+# [00009.134 ms] [21.300482] sumCuda<<<4096, 128>>> [mode=1]
+# [00009.090 ms] [21.300482] sumCuda<<<4096, 128>>> [mode=2]
+# [00008.972 ms] [21.300482] sumCuda<<<4096, 256>>> [mode=0]
+# [00008.974 ms] [21.300482] sumCuda<<<4096, 256>>> [mode=1]
+# [00008.967 ms] [21.300482] sumCuda<<<4096, 256>>> [mode=2]
+# [00008.954 ms] [21.300482] sumCuda<<<4096, 512>>> [mode=0]
+# [00008.977 ms] [21.300482] sumCuda<<<4096, 512>>> [mode=1]
+# [00008.953 ms] [21.300482] sumCuda<<<4096, 512>>> [mode=2]
+# [00008.972 ms] [21.300482] sumCuda<<<4096, 1024>>> [mode=0]
+# [00008.956 ms] [21.300482] sumCuda<<<4096, 1024>>> [mode=1]
+# [00008.951 ms] [21.300482] sumCuda<<<4096, 1024>>> [mode=2]
+# [00009.093 ms] [21.300482] sumCuda<<<8192, 32>>> [mode=0]
+# [00010.215 ms] [21.300482] sumCuda<<<8192, 32>>> [mode=1]
+# [00009.109 ms] [21.300482] sumCuda<<<8192, 32>>> [mode=2]
+# [00008.977 ms] [21.300482] sumCuda<<<8192, 64>>> [mode=0]
+# [00009.135 ms] [21.300482] sumCuda<<<8192, 64>>> [mode=1]
+# [00008.978 ms] [21.300482] sumCuda<<<8192, 64>>> [mode=2]
+# [00009.020 ms] [21.300482] sumCuda<<<8192, 128>>> [mode=0]
+# [00008.979 ms] [21.300482] sumCuda<<<8192, 128>>> [mode=1]
+# [00009.003 ms] [21.300482] sumCuda<<<8192, 128>>> [mode=2]
+# [00008.950 ms] [21.300482] sumCuda<<<8192, 256>>> [mode=0]
+# [00008.963 ms] [21.300482] sumCuda<<<8192, 256>>> [mode=1]
+# [00008.951 ms] [21.300482] sumCuda<<<8192, 256>>> [mode=2]
+# [00008.971 ms] [21.300482] sumCuda<<<8192, 512>>> [mode=0]
+# [00008.955 ms] [21.300482] sumCuda<<<8192, 512>>> [mode=1]
+# [00008.943 ms] [21.300482] sumCuda<<<8192, 512>>> [mode=2]
+# [00008.948 ms] [21.300482] sumCuda<<<8192, 1024>>> [mode=0]
+# [00008.952 ms] [21.300482] sumCuda<<<8192, 1024>>> [mode=1]
+# [00008.950 ms] [21.300482] sumCuda<<<8192, 1024>>> [mode=2]
+# [00009.162 ms] [21.300482] sumCuda<<<16384, 32>>> [mode=0]
+# [00010.113 ms] [21.300482] sumCuda<<<16384, 32>>> [mode=1]
+# [00009.163 ms] [21.300482] sumCuda<<<16384, 32>>> [mode=2]
+# [00009.045 ms] [21.300482] sumCuda<<<16384, 64>>> [mode=0]
+# [00009.178 ms] [21.300482] sumCuda<<<16384, 64>>> [mode=1]
+# [00009.026 ms] [21.300482] sumCuda<<<16384, 64>>> [mode=2]
+# [00009.074 ms] [21.300482] sumCuda<<<16384, 128>>> [mode=0]
+# [00009.061 ms] [21.300482] sumCuda<<<16384, 128>>> [mode=1]
+# [00009.045 ms] [21.300482] sumCuda<<<16384, 128>>> [mode=2]
+# [00008.960 ms] [21.300482] sumCuda<<<16384, 256>>> [mode=0]
+# [00008.957 ms] [21.300482] sumCuda<<<16384, 256>>> [mode=1]
+# [00008.976 ms] [21.300482] sumCuda<<<16384, 256>>> [mode=2]
+# [00008.947 ms] [21.300482] sumCuda<<<16384, 512>>> [mode=0]
+# [00008.954 ms] [21.300482] sumCuda<<<16384, 512>>> [mode=1]
+# [00008.949 ms] [21.300482] sumCuda<<<16384, 512>>> [mode=2]
+# [00008.944 ms] [21.300482] sumCuda<<<16384, 1024>>> [mode=0]
+# [00008.950 ms] [21.300482] sumCuda<<<16384, 1024>>> [mode=1]
+# [00008.947 ms] [21.300482] sumCuda<<<16384, 1024>>> [mode=2]
+# [00009.061 ms] [21.300482] sumCuda<<<32768, 32>>> [mode=0]
+# [00009.996 ms] [21.300482] sumCuda<<<32768, 32>>> [mode=1]
+# [00009.071 ms] [21.300482] sumCuda<<<32768, 32>>> [mode=2]
+# [00008.993 ms] [21.300482] sumCuda<<<32768, 64>>> [mode=0]
+# [00009.135 ms] [21.300482] sumCuda<<<32768, 64>>> [mode=1]
+# [00008.985 ms] [21.300482] sumCuda<<<32768, 64>>> [mode=2]
+# [00008.986 ms] [21.300482] sumCuda<<<32768, 128>>> [mode=0]
+# [00008.991 ms] [21.300482] sumCuda<<<32768, 128>>> [mode=1]
+# [00008.989 ms] [21.300482] sumCuda<<<32768, 128>>> [mode=2]
+# [00008.949 ms] [21.300482] sumCuda<<<32768, 256>>> [mode=0]
+# [00008.954 ms] [21.300482] sumCuda<<<32768, 256>>> [mode=1]
+# [00008.953 ms] [21.300482] sumCuda<<<32768, 256>>> [mode=2]
+# [00008.945 ms] [21.300482] sumCuda<<<32768, 512>>> [mode=0]
+# [00008.953 ms] [21.300482] sumCuda<<<32768, 512>>> [mode=1]
+# [00008.947 ms] [21.300482] sumCuda<<<32768, 512>>> [mode=2]
+# [00008.946 ms] [21.300482] sumCuda<<<32768, 1024>>> [mode=0]
+# [00008.949 ms] [21.300482] sumCuda<<<32768, 1024>>> [mode=1]
+# [00008.947 ms] [21.300482] sumCuda<<<32768, 1024>>> [mode=2]
 ```
-
-[![](https://i.imgur.com/CWySswQ.gif)][sheets]
-[![](https://i.imgur.com/o3mYdbR.gif)][sheets]
-[![](https://i.imgur.com/jGqYBwP.gif)][sheets]
-[![](https://i.imgur.com/ktH8eSd.gif)][sheets]
 
 <br>
 <br>
@@ -85,5 +153,6 @@ $ ./a.out
 
 [Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
 [Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
-[charts]: https://photos.app.goo.gl/795Rcbqa14srjoZBA
-[sheets]: https://docs.google.com/spreadsheets/d/1pgIn6dcrKtVv0SoaJeQwTe1CzHRKuoUOXjn5_KJqrA8/edit?usp=sharing
+[branches]: https://github.com/puzzlef/sum-cuda-inplace-adjust-launch/branches
+[charts]: https://wolfram77.github.io
+[sheets]: https://wolfram77.github.io
