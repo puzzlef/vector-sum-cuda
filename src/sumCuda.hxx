@@ -21,8 +21,8 @@ __device__ void sumKernelReduce(T* a, int N, int i) {
 }
 
 
-template <class T, int R>
-__device__ T sumKernelLoop(T *x, int N, int i, int DI, int S) {
+template <class T, int S, int R>
+__device__ T sumKernelLoop(T *x, int N, int i, int DI) {
   T a = T();
   for (; i+(R-1)*S<N; i+=DI) {
     switch (R) {
@@ -46,12 +46,12 @@ __device__ T sumKernelLoop(T *x, int N, int i, int DI, int S) {
 }
 
 
-template <class T, int R=1>
+template <class T, int S, int R=1>
 __global__ void sumKernel(T *a, T *x, int N) {
   DEFINE(t, b, B, G);
   __shared__ T cache[BLOCK_LIMIT];
 
-  cache[t] = sumKernelLoop<T, R>(x, N, R*B*b+t, G*R*B, B);
+  cache[t] = sumKernelLoop<T, S, R>(x, N, R*B*b+t, G*R*B);
   sumKernelReduce(cache, B, t);
   if (t==0) a[b] = cache[0];
 }
@@ -59,11 +59,58 @@ __global__ void sumKernel(T *a, T *x, int N) {
 
 template <class T>
 void sumKernelCu(T *a, T *x, int N, int G, int B, int R=1) {
-  switch (R) {
+  switch (B) {
     default:
-    case 1: sumKernel<T, 1><<<G, B>>>(a, x, N); break;
-    case 2: sumKernel<T, 2><<<G, B>>>(a, x, N); break;
-    case 4: sumKernel<T, 4><<<G, B>>>(a, x, N); break;
+      printf("sumKernelCu: Bad block size %d!\n", B);
+      break;
+    case 32:
+      switch (R) {
+        default:
+        case 1: sumKernel<T, 32, 1><<<G, B>>>(a, x, N); break;
+        case 2: sumKernel<T, 32, 2><<<G, B>>>(a, x, N); break;
+        case 4: sumKernel<T, 32, 4><<<G, B>>>(a, x, N); break;
+      }
+      break;
+    case 64:
+      switch (R) {
+        default:
+        case 1: sumKernel<T, 64, 1><<<G, B>>>(a, x, N); break;
+        case 2: sumKernel<T, 64, 2><<<G, B>>>(a, x, N); break;
+        case 4: sumKernel<T, 64, 4><<<G, B>>>(a, x, N); break;
+      }
+      break;
+    case 128:
+      switch (R) {
+        default:
+        case 1: sumKernel<T, 128, 1><<<G, B>>>(a, x, N); break;
+        case 2: sumKernel<T, 128, 2><<<G, B>>>(a, x, N); break;
+        case 4: sumKernel<T, 128, 4><<<G, B>>>(a, x, N); break;
+      }
+      break;
+    case 256:
+      switch (R) {
+        default:
+        case 1: sumKernel<T, 256, 1><<<G, B>>>(a, x, N); break;
+        case 2: sumKernel<T, 256, 2><<<G, B>>>(a, x, N); break;
+        case 4: sumKernel<T, 256, 4><<<G, B>>>(a, x, N); break;
+      }
+      break;
+    case 512:
+      switch (R) {
+        default:
+        case 1: sumKernel<T, 512, 1><<<G, B>>>(a, x, N); break;
+        case 2: sumKernel<T, 512, 2><<<G, B>>>(a, x, N); break;
+        case 4: sumKernel<T, 512, 4><<<G, B>>>(a, x, N); break;
+      }
+      break;
+    case 1024:
+      switch (R) {
+        default:
+        case 1: sumKernel<T, 1024, 1><<<G, B>>>(a, x, N); break;
+        case 2: sumKernel<T, 1024, 2><<<G, B>>>(a, x, N); break;
+        case 4: sumKernel<T, 1024, 4><<<G, B>>>(a, x, N); break;
+      }
+      break;
   }
 }
 
@@ -72,9 +119,9 @@ template <class T>
 SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
   int R = 1 << o.mode;
   int B = o.blockSize;
-  int G = min(ceilDiv(N, R*B), o.gridLimit);
+  int G = max(prevPow2(min(ceilDiv(N, R*B), o.gridLimit)), 32);
   int C = 128; // decent sum threads
-  int H = min(ceilDiv(G, R*C), BLOCK_LIMIT);
+  int H = max(prevPow2(min(ceilDiv(G, R*C), BLOCK_LIMIT)), 32);
   size_t N1 = N * sizeof(T);
   size_t G1 = G * sizeof(T);
 
