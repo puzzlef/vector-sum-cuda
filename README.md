@@ -66,14 +66,22 @@ $ ./a.out
 # [00009.060 ms] [21.300482] sumCuda<<<32768, 1024>>>
 ```
 
-[![](https://i.imgur.com/EseR7Oa.gif)][sheets]
-[![](https://i.imgur.com/8TCXC0q.gif)][sheets]
-[![](https://i.imgur.com/AmQEavQ.gif)][sheets]
-[![](https://i.imgur.com/U9YlVC4.gif)][sheets]
-[![](https://i.imgur.com/ZLqcgXy.gif)][sheets]
-[![](https://i.imgur.com/HOx7ppf.gif)][sheets]
-[![](https://i.imgur.com/OU4iUc5.gif)][sheets]
-[![](https://i.imgur.com/yDIzLIW.gif)][sheets]
+[![](https://i.imgur.com/EseR7Oa.gif)][sheetp]
+[![](https://i.imgur.com/8TCXC0q.gif)][sheetp]
+
+[![](https://i.imgur.com/AmQEavQ.gif)][sheetp]
+[![](https://i.imgur.com/U9YlVC4.gif)][sheetp]
+
+[![](https://i.imgur.com/ZLqcgXy.gif)][sheetp]
+[![](https://i.imgur.com/HOx7ppf.gif)][sheetp]
+
+[![](https://i.imgur.com/OU4iUc5.gif)][sheetp]
+[![](https://i.imgur.com/yDIzLIW.gif)][sheetp]
+
+[![](https://i.imgur.com/iErxWzj.png)][sheetp]
+[![](https://i.imgur.com/rsFb3yU.png)][sheetp]
+[![](https://i.imgur.com/xDxELQV.png)][sheetp]
+[![](https://i.imgur.com/xygbI1t.png)][sheetp]
 
 <br>
 <br>
@@ -94,3 +102,4 @@ $ ./a.out
 [in-place]: https://github.com/puzzlef/sum-cuda-inplace-adjust-launch
 [charts]: https://photos.app.goo.gl/Jytw1qgSFPoTrL1FA
 [sheets]: https://docs.google.com/spreadsheets/d/1jNNg43h19DUNwdwQVkOsLe5Dq-f_MfIbzaGG1pai4SU/edit?usp=sharing
+[sheetp]: https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4uC8kGvwbHyfRM-YpIHNEdWHwb7ufNGN2vxjEj1qFmjCmtrGigpTWs8SukrEh9iv7t20ZaQqXGa-0/pubhtml
