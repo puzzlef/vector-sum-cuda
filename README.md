@@ -39,7 +39,12 @@ $ ./a.out
 # [00008.989 ms] [21.300482] sumInplaceCuda
 ```
 
-[![](https://i.imgur.com/rJNTBF3.gif)][sheets]
+[![](https://i.imgur.com/rJNTBF3.gif)][sheetp]
+
+[![](https://i.imgur.com/YvBEioN.png)][sheetp]
+[![](https://i.imgur.com/m2G6WgE.png)][sheetp]
+[![](https://i.imgur.com/04VUuVM.png)][sheetp]
+[![](https://i.imgur.com/gDrnsNp.png)][sheetp]
 
 <br>
 <br>
@@ -61,3 +66,4 @@ $ ./a.out
 [in-place]: https://github.com/puzzlef/sum-cuda-inplace-adjust-launch
 [charts]: https://photos.app.goo.gl/a8PM8K1FXPm1LQed8
 [sheets]: https://docs.google.com/spreadsheets/d/1CpZRcOcQ1FKTX0nLWb6R7znPtgeQXhlA7HNEIm2_ZRc/edit?usp=sharing
+[sheetp]: https://docs.google.com/spreadsheets/d/e/2PACX-1vRpLHagCPAIPGmT43G6n8-U3S3u3vp04_M4ky8ekfG9U_MOxAtSSUZVFIM6msmYgYies4Ftsmm-DAeh/pubhtml
