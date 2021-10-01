@@ -72,10 +72,15 @@ $ ./a.out
 # [00008.947 ms] [21.300482] sumCuda<<<32768, 1024>>>
 ```
 
-[![](https://i.imgur.com/CWySswQ.gif)][sheets]
-[![](https://i.imgur.com/o3mYdbR.gif)][sheets]
-[![](https://i.imgur.com/jGqYBwP.gif)][sheets]
-[![](https://i.imgur.com/ktH8eSd.gif)][sheets]
+[![](https://i.imgur.com/CWySswQ.gif)][sheetp]
+[![](https://i.imgur.com/o3mYdbR.gif)][sheetp]
+[![](https://i.imgur.com/jGqYBwP.gif)][sheetp]
+[![](https://i.imgur.com/ktH8eSd.gif)][sheetp]
+
+[![](https://i.imgur.com/5ptA5mP.png)][sheetp]
+[![](https://i.imgur.com/H5fsuAu.png)][sheetp]
+[![](https://i.imgur.com/me2NSUv.png)][sheetp]
+[![](https://i.imgur.com/Acuh8hF.png)][sheetp]
 
 <br>
 <br>
@@ -96,3 +101,4 @@ $ ./a.out
 [branches]: https://github.com/puzzlef/sum-cuda-inplace-adjust-launch/branches
 [charts]: https://photos.app.goo.gl/795Rcbqa14srjoZBA
 [sheets]: https://docs.google.com/spreadsheets/d/1pgIn6dcrKtVv0SoaJeQwTe1CzHRKuoUOXjn5_KJqrA8/edit?usp=sharing
+[sheetp]: https://docs.google.com/spreadsheets/d/e/2PACX-1vRR3VIK58QcfE3fDl2EMhg8TKvZQOq4QONU3WkcDZNihlzG82gtROy4QknkcN5xHlWyraIEtteS4YI2/pubhtml
