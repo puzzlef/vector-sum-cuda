@@ -8,7 +8,7 @@ using namespace std;
 
 
 
-#define TYPE double
+#define TYPE float
 
 
 void runSum(int N, int repeat) {
