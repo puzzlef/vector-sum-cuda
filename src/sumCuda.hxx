@@ -3,7 +3,6 @@
 #include <algorithm>
 #include "_main.hxx"
 #include "sum.hxx"
-#include "sumSeq.hxx"
 
 using std::vector;
 using std::min;
@@ -34,7 +33,6 @@ template <class T>
 __global__ void sumKernel(T *a, T *x, int N) {
   DEFINE(t, b, B, G);
   __shared__ T cache[BLOCK_LIMIT];
-
   cache[t] = sumKernelLoop(x, N, B*b+t, G*B);
   sumKernelReduce(cache, B, t);
   if (t == 0) a[b] = cache[0];
@@ -57,7 +55,7 @@ SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
   float t = measureDuration([&] {
     sumKernel<<<G, B>>>(aD, xD, N);
     TRY( cudaMemcpy(aH, aD, G1, cudaMemcpyDeviceToHost) );
-    a = sumLoop(aH, G);
+    a = sum(aH, G);
   }, o.repeat);
 
   TRY( cudaFree(aD) );
