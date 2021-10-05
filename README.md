@@ -17,26 +17,26 @@ experiment was done with guidance from [Prof. Dip Sankar Banerjee] and
 $ nvcc -std=c++17 -Xcompiler -O3 main.cu
 $ ./a.out
 
-# (DOUBLE)
+# (FLOAT)
 # # Elements 1e+06
-# [00002.003 ms] [14.392727] sumSeq
-# [00000.039 ms] [14.392727] sumMemcpyCuda
-# [00000.034 ms] [14.392727] sumInplaceCuda
+# [00001.977 ms] [14.357358] sumSeq
+# [00000.039 ms] [14.392739] sumMemcpyCuda
+# [00000.031 ms] [14.392727] sumInplaceCuda
 #
 # # Elements 1e+07
-# [00014.767 ms] [16.695311] sumSeq
-# [00000.123 ms] [16.695311] sumMemcpyCuda
-# [00000.116 ms] [16.695311] sumInplaceCuda
+# [00014.434 ms] [15.403683] sumSeq
+# [00000.080 ms] [16.695312] sumMemcpyCuda
+# [00000.075 ms] [16.695312] sumInplaceCuda
 #
 # # Elements 1e+08
-# [00151.176 ms] [18.997896] sumSeq
-# [00000.940 ms] [18.997896] sumMemcpyCuda
-# [00000.935 ms] [18.997896] sumInplaceCuda
+# [00162.879 ms] [15.403683] sumSeq
+# [00000.475 ms] [18.997889] sumMemcpyCuda
+# [00000.473 ms] [18.997881] sumInplaceCuda
 #
 # # Elements 1e+09
-# [01444.112 ms] [21.300482] sumSeq
-# [00008.990 ms] [21.300482] sumMemcpyCuda
-# [00008.989 ms] [21.300482] sumInplaceCuda
+# [01580.946 ms] [15.403683] sumSeq
+# [00004.517 ms] [21.300274] sumMemcpyCuda
+# [00004.507 ms] [21.300262] sumInplaceCuda
 ```
 
 [![](https://i.imgur.com/rJNTBF3.gif)][sheetp]

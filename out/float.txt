@@ -1,0 +1,19 @@
+# Elements 1e+06
+[00001.977 ms] [14.357358] sumSeq
+[00000.039 ms] [14.392739] sumMemcpyCuda
+[00000.031 ms] [14.392727] sumInplaceCuda
+
+# Elements 1e+07
+[00014.434 ms] [15.403683] sumSeq
+[00000.080 ms] [16.695312] sumMemcpyCuda
+[00000.075 ms] [16.695312] sumInplaceCuda
+
+# Elements 1e+08
+[00162.879 ms] [15.403683] sumSeq
+[00000.475 ms] [18.997889] sumMemcpyCuda
+[00000.473 ms] [18.997881] sumInplaceCuda
+
+# Elements 1e+09
+[01580.946 ms] [15.403683] sumSeq
+[00004.517 ms] [21.300274] sumMemcpyCuda
+[00004.507 ms] [21.300262] sumInplaceCuda
