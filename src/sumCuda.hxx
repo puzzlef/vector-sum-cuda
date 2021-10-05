@@ -44,7 +44,7 @@ template <class T>
 SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
   int B = o.blockSize;
   int G = min(ceilDiv(N, B), o.gridLimit);
-  int C = 128; // decent sum threads
+  int C = 256; // decent sum threads
   int H = min(ceilDiv(G, C), BLOCK_LIMIT);
   size_t N1 = N * sizeof(T);
   size_t G1 = G * sizeof(T);
