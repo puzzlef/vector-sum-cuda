@@ -11,4 +11,4 @@ cd $src
 
 # Run
 nvcc -std=c++17 -Xcompiler -O3 main.cu
-stdbuf --output=L ./a.out 2>&1          | tee -a "$out"
+stdbuf --output=L ./a.out 2>&1 | tee -a "$out"

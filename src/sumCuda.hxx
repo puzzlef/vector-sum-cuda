@@ -34,7 +34,6 @@ template <class T, int C=BLOCK_LIMIT>
 __global__ void sumKernel(T *a, const T *x, int N) {
   DEFINE(t, b, B, G);
   __shared__ T cache[C];
-
   cache[t] = sumKernelLoop(x, N, B*b+t, G*B);
   sumKernelReduce(cache, B, t);
   if (t==0) a[b] = cache[0];
@@ -52,8 +51,9 @@ template <class T>
 void sumInplaceCu(T *a, const T *x, int N) {
   const int B = BLOCK_DIM_R<T>();
   const int G = min(ceilDiv(N, B), GRID_DIM_R<T>());
+  const int H = min(G, BLOCK_LIMIT);
   sumKernel<<<G, B>>>(a, x, N);
-  sumKernel<<<1, G>>>(a, a, G);
+  sumKernel<<<1, H>>>(a, a, G);
 }
 
 template <class T>

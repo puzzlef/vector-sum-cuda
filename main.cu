@@ -8,8 +8,11 @@ using namespace std;
 
 
 
+#define TYPE double
+
+
 void runSum(int N, int repeat) {
-  vector<double> x(N);
+  vector<TYPE> x(N);
   for (int i=0; i<N; i++)
     x[i] = 1.0/(i+1);
 
