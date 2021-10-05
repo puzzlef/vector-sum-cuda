@@ -1,17 +1,20 @@
 Comparing various launch configs for CUDA based **vector element sum**.
 
-A floating-point vector `x`, with no. of **elements** `1E+6` to `1E+9` was
-summed up using CUDA (`Σx`). Each no. of elements was attempted with
+A floating-point vector `x`, with number of **elements** from `1E+6` to
+`1E+9` was summed up using CUDA (`Σx`). Each element count was attempted with
 various **CUDA launch configs**, running each config 5 times to get a good
-time measure. Sum here represents any reduction operation that processes
+time measure. Sum here represents any `reduce()` operation that processes
 several values to a single value.
 
 This sum uses *memcpy* to transfer partial results to CPU, where the final sum
-is calculated. If the result can be used within GPU itself, it might be faster
-to calculate complete sum [in-place] instead of transferring to CPU. For
-**float**, a `grid_limit` of **1024** and a `block_size` of **128** is a
-decent choice. For **double**, a `grid_limit` of **1024** and a `block_size`
-of **256** is a decent choice.
+is calculated. If the result can be used within GPU itself, it *might* be
+faster to calculate complete sum [in-place] instead of transferring to CPU.
+Results indicate that a **grid_limit** of `1024` and a **block_size** of
+`128/256` is suitable for **float** datatype, and a **grid_limit** of `1024`
+and a **block_size** of `256` is suitable for **double** datatype. Thus, using
+a **grid_limit** of `1024` and a **block_size** of `256` could be a decent
+choice. Interestingly, the *sequential sum* suffers from **precision issue**
+when using the **float** datatype, while the *CUDA based sum* does not.
 
 All outputs are saved in [out](out/) and a small part of the output is listed
 here. [Nsight Compute] profile results are saved in [prof](prof/). Some [charts]
@@ -80,10 +83,10 @@ $ ./a.out
 [![](https://i.imgur.com/OU4iUc5.gif)][sheetp]
 [![](https://i.imgur.com/yDIzLIW.gif)][sheetp]
 
-[![](https://i.imgur.com/iErxWzj.png)][sheetp]
-[![](https://i.imgur.com/rsFb3yU.png)][sheetp]
-[![](https://i.imgur.com/xDxELQV.png)][sheetp]
-[![](https://i.imgur.com/xygbI1t.png)][sheetp]
+[![](https://i.imgur.com/riXcPkR.png)][sheetp]
+[![](https://i.imgur.com/5FGuvPS.png)][sheetp]
+[![](https://i.imgur.com/mk6BUxi.png)][sheetp]
+[![](https://i.imgur.com/3hX2a05.png)][sheetp]
 
 <br>
 <br>
@@ -96,7 +99,7 @@ $ ./a.out
 <br>
 <br>
 
-[![](https://i.imgur.com/s6FklYl.png)](https://www.youtube.com/watch?v=vTdodyhhjww)
+[![](https://i.imgur.com/ulq4FzL.jpg)](https://www.youtube.com/watch?v=vTdodyhhjww)
 
 [Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
 [Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
