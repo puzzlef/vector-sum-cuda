@@ -30,10 +30,11 @@ __device__ T sumKernelLoop(T *x, int N, int i, int DI) {
 
 
 template <class T>
-__global__ void sumKernel(T *a, T *x, int N) {
+__global__ void sumKernel(T *a, T *x, int N, int D) {
   DEFINE(t, b, B, G);
   __shared__ T cache[BLOCK_LIMIT];
-  cache[t] = sumKernelLoop(x, N, B*b+t, G*B);
+  unusedCuda(G);
+  cache[t] = sumKernelLoop(x, min(N, D*B*(b+1)), D*B*b+t, B);
   sumKernelReduce(cache, B, t);
   if (t == 0) a[b] = cache[0];
 }
@@ -53,7 +54,8 @@ SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
 
   T a = T();
   float t = measureDuration([&] {
-    sumKernel<<<G, B>>>(aD, xD, N);
+    int D = ceilDiv(N, G*B);
+    sumKernel<<<G, B>>>(aD, xD, N, D);
     TRY( cudaMemcpy(aH, aD, G1, cudaMemcpyDeviceToHost) );
     a = sum(aH, G);
   }, o.repeat);
