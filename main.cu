@@ -8,7 +8,7 @@ using namespace std;
 
 
 
-#define TYPE float
+#define TYPE double
 
 
 void runSum(int N, int repeat) {
@@ -21,10 +21,10 @@ void runSum(int N, int repeat) {
   printf("[%09.3f ms] [%f] sumSeq\n", a1.time, a1.result);
 
   // Find Σx accelerated using CUDA.
-  for (int grid=1024; grid<=GRID_LIMIT; grid*=2) {
-    for (int block=32; block<=BLOCK_LIMIT; block*=2) {
-      auto a2 = sumCuda(x, {repeat, grid, block});
-      printf("[%09.3f ms] [%f] sumCuda<<<%d, %d>>>\n", a2.time, a2.result, grid, block);
+  for (int block=32; block<=BLOCK_LIMIT; block*=2) {
+    for (int duty=1; duty<=64; duty+=ceilDiv(prevPow2(duty), 2)) {
+      auto a2 = sumCuda(x, {repeat, block, duty});
+      printf("[%09.3f ms] [%f] sumCuda<<<auto, %d>>> [thread-duty=%d]\n", a2.time, a2.result, block, duty);
     }
   }
 }

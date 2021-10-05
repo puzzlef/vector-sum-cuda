@@ -3,7 +3,7 @@ const os = require('os');
 const path = require('path');
 
 const RELEMS = /^# Elements (.+)/m;
-const RRESLT = /^\[(.+?) ms\] \[(.+?)\] (\w+)(?:<<<(\d+), (\d+)>>>)?/m;
+const RRESLT = /^\[(.+?) ms\] \[(.+?)\] (\w+)(?:<<<auto, (\d+)>>> \[thread-duty=(\d+)\])?/m;
 const RPSUMM = /^(.+?),(.+?),(.+?),(.+?),"(.+?)",(.+?),(.+?),(.+)/m;
 const RPTECH = /^sumCuda/m;
 
@@ -51,13 +51,13 @@ function readLogLine(ln, data, state) {
     state = {elements};
   }
   else if (RRESLT.test(ln)) {
-    var [, time, sum, technique, grid_limit, block_size] = RRESLT.exec(ln);
+    var [, time, sum, technique, block_size, thread_duty] = RRESLT.exec(ln);
     data.get(state.elements).push(Object.assign({}, state, {
-      time:       parseFloat(time),
-      sum:        parseFloat(sum),
+      time:        parseFloat(time),
+      sum:         parseFloat(sum),
       technique,
-      grid_limit: parseFloat(grid_limit||'0'),
-      block_size: parseFloat(block_size||'0')
+      block_size:  parseFloat(block_size||'0'),
+      thread_duty: parseFloat(thread_duty||'0')
     }));
   }
   return state;

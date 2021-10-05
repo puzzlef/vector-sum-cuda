@@ -42,7 +42,7 @@ __global__ void sumKernel(T *a, T *x, int N) {
 template <class T>
 SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
   int B = o.blockSize;
-  int G = min(ceilDiv(N, B), o.gridLimit);
+  int G = min(ceilDiv(N, B*o.threadDuty), GRID_LIMIT);
   size_t N1 = N * sizeof(T);
   size_t G1 = G * sizeof(T);
 

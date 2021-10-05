@@ -1,10 +1,10 @@
-Comparing various launch configs for CUDA based **vector element sum**.
+Comparing various *per-thread duty numbers* for **CUDA based vector element sum (memcpy)**.
 
 A floating-point vector `x`, with number of **elements** from `1E+6` to
 `1E+9` was summed up using CUDA (`Σx`). Each element count was attempted with
-various **CUDA launch configs**, running each config 5 times to get a good
-time measure. Sum here represents any `reduce()` operation that processes
-several values to a single value.
+various **CUDA launch configs** and **per-thread-duties**, running each config
+5 times to get a good time measure. Sum here represents any `reduce()`
+operation that processes several values to a single value.
 
 This sum uses *memcpy* to transfer partial results to CPU, where the final sum
 is calculated. If the result can be used within GPU itself, it *might* be

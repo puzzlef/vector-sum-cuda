@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-src="sum-cuda-memcpy-adjust-launch"
+src="sum-cuda-memcpy-adjust-duty"
 out="/home/resources/Documents/subhajit/$src.log"
 ulimit -s unlimited
 printf "" > "$out"
