@@ -44,8 +44,7 @@ template <class T>
 SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
   int B = o.blockSize;
   int G = min(ceilDiv(N, B), o.gridLimit);
-  int C = 128; // decent sum threads
-  int H = min(ceilDiv(G, C), BLOCK_LIMIT);
+  int H = min(G, BLOCK_LIMIT);
   size_t N1 = N * sizeof(T);
   size_t G1 = G * sizeof(T);
 
@@ -57,15 +56,8 @@ SumResult<T> sumCuda(const T *x, int N, const SumOptions& o={}) {
 
   T a = T();
   float t = measureDuration([&] {
-    if (G>BLOCK_LIMIT) {
-      sumKernel<<<G, B>>>(bD, xD, N);
-      sumKernel<<<H, C>>>(aD, bD, G);
-      sumKernel<<<1, H>>>(aD, aD, H);
-    }
-    else {
-      sumKernel<<<G, B>>>(aD, xD, N);
-      sumKernel<<<1, G>>>(aD, aD, G);
-    }
+    sumKernel<<<G, B>>>(aD, xD, N);
+    sumKernel<<<1, H>>>(aD, aD, G);
     TRY( cudaDeviceSynchronize() );
   }, o.repeat);
   TRY( cudaMemcpy(&a, aD, sizeof(T), cudaMemcpyDeviceToHost) );
