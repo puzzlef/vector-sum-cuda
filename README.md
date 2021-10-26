@@ -97,6 +97,7 @@ $ ./a.out
 <br>
 
 [![](https://i.imgur.com/s6FklYl.png)](https://www.youtube.com/watch?v=vTdodyhhjww)
+[![DOI](https://zenodo.org/badge/375605202.svg)](https://zenodo.org/badge/latestdoi/375605202)
 
 [Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
 [Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
