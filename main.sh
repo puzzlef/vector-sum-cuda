@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-src="max-sequential-vs-cuda"
+src="sum-sequential-vs-cuda"
 out="/home/resources/Documents/subhajit/$src.log"
 ulimit -s unlimited
 printf "" > "$out"

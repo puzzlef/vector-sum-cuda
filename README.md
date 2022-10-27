@@ -1,5 +1,7 @@
 Performance of *sequential* vs *CUDA-based* **vector element max**.
 
+`TODO`
+
 This experiment was for comparing the performance between:
 1. Find `max(x)` using a single thread (**sequential**).
 2. Find `max(x)` accelerated using **CUDA** (*not power-of-2* reduce).
@@ -54,7 +56,6 @@ $ ./a.out
 
 [![](https://i.imgur.com/MOJPoM0.jpg)](https://www.youtube.com/watch?v=E0_Ic1P-Hzg)<br>
 [![ORG](https://img.shields.io/badge/org-puzzlef-green?logo=Org)](https://puzzlef.github.io)
-[![DOI](https://zenodo.org/badge/558019967.svg)](https://zenodo.org/badge/latestdoi/558019967)
 
 
 [Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
