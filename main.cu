@@ -26,16 +26,16 @@ vector<T> randomValues(size_t N, R& rnd) {
 template <class T>
 void runBatch(const vector<T>& x, int repeat) {
   size_t N = x.size();
-  // Find max() using a single thread.
-  auto a1 = maxSeq(x, {repeat});
-  printf("[%09.3f ms; %.0e elems.] [%d] maxSeq\n",      a1.time, (double) N, a1.result);
-  // Find max() accelerated using CUDA (not pow2).
-  auto a2 = maxCuda(x, {repeat});
-  printf("[%09.3f ms; %.0e elems.] [%d] maxCuda\n",     a2.time, (double) N, a2.result);
+  // Find sum() using a single thread.
+  auto a1 = sumSeq(x, {repeat});
+  printf("[%09.3f ms; %.0e elems.] [%d] sumSeq\n",      a1.time, (double) N, a1.result);
+  // Find sum() accelerated using CUDA (not pow2).
+  auto a2 = sumCuda(x, {repeat});
+  printf("[%09.3f ms; %.0e elems.] [%d] sumCuda\n",     a2.time, (double) N, a2.result);
   ASSERT(a2.result==a1.result);
-  // Find max() accelerated using CUDA (pow2).
-  auto a3 = maxCuda<true>(x, {repeat});
-  printf("[%09.3f ms; %.0e elems.] [%d] maxCudaPow2\n", a3.time, (double) N, a3.result);
+  // Find sum() accelerated using CUDA (pow2).
+  auto a3 = sumCuda<true>(x, {repeat});
+  printf("[%09.3f ms; %.0e elems.] [%d] sumCudaPow2\n", a3.time, (double) N, a3.result);
   ASSERT(a3.result==a1.result);
 }
 
