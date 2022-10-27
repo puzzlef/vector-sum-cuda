@@ -1,11 +1,9 @@
-Performance of *sequential* vs *CUDA-based* **vector element max**.
-
-`TODO`
+Performance of *sequential* vs *CUDA-based* **vector element sum**.
 
 This experiment was for comparing the performance between:
-1. Find `max(x)` using a single thread (**sequential**).
-2. Find `max(x)` accelerated using **CUDA** (*not power-of-2* reduce).
-3. Find `max(x)` accelerated using **CUDA** (*power-of-2* reduce).
+1. Find `sum(x)` using a single thread (**sequential**).
+2. Find `sum(x)` accelerated using **CUDA** (*not power-of-2* reduce).
+3. Find `sum(x)` accelerated using **CUDA** (*power-of-2* reduce).
 
 Here `x` is a 32-bit integer vector. Both approaches were attempted on a number
 of vector sizes, running each approach 5 times per size to get a good time
@@ -27,13 +25,13 @@ was done with guidance from [Prof. Kishore Kothapalli] and
 $ nvcc -std=c++17 -Xcompiler -O3 main.cu
 $ ./a.out
 
-# [00000.001 ms; 1e+03 elems.] [999802] maxSeq
-# [00000.543 ms; 1e+03 elems.] [999802] maxCuda
-# [00000.018 ms; 1e+03 elems.] [999802] maxCudaPow2
+# [00000.002 ms; 1e+03 elems.] [502942114] sumSeq
+# [00001.128 ms; 1e+03 elems.] [502942114] sumCuda
+# [00000.018 ms; 1e+03 elems.] [502942114] sumCudaPow2
 # ...
 ```
 
-[![](https://i.imgur.com/Xm9M2wx.png)][sheetp]
+[![](https://i.imgur.com/WAY6rGl.png)][sheetp]
 
 <br>
 <br>
@@ -60,7 +58,7 @@ $ ./a.out
 
 [Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
 [Prof. Kishore Kothapalli]: https://faculty.iiit.ac.in/~kkishore/
-[gist]: https://gist.github.com/wolfram77/57ea86e0e71fb88f2dfd925b7fb753cd
-[charts]: https://imgur.com/a/AO4iYAB
-[sheets]: https://docs.google.com/spreadsheets/d/1TSEh0slMEZg47Rp01LzoPVvG9kVJZLP2RbGJdwsqmP0/edit?usp=sharing
-[sheetp]: https://docs.google.com/spreadsheets/d/e/2PACX-1vTOsNQOXDX3K7nQ256HHwKRnIydERHPoYA7IFmNlH58pTQb7sGBSMu1fAjA-Tk_VEs4tfm9iXb22_FS/pubhtml
+[gist]: https://gist.github.com/wolfram77/44465db42bf17b0464159331388da526
+[charts]: https://imgur.com/a/bnRHipj
+[sheets]: https://docs.google.com/spreadsheets/d/19hBlJQv7JwEuoA2X0aw5IS0_MghifQfr3TG_WgmoSww/edit?usp=sharing
+[sheetp]: https://docs.google.com/spreadsheets/d/e/2PACX-1vTwzwsCzU25d7YEo6kVST5tRVSWKESczT7Wo51ML_tghIrBlOa4e9IrCgeG5c5_lOM5Ojzu8Txq8xjQ/pubhtml
