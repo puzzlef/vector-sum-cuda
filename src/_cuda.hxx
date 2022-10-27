@@ -560,7 +560,7 @@ void maxInplaceCuW(T *a, const T *x, size_t N) {
 template <bool POW2=false, class T>
 void maxCuW(T *a, const T *x, size_t N) {
   ASSERT(a && x);
-  maxMemcpyCuW(a, x, N);
+  maxMemcpyCuW<POW2>(a, x, N);
 }
 
 
@@ -569,13 +569,24 @@ void maxCuW(T *a, const T *x, size_t N) {
 // SUM
 // ---
 
-template <class T>
+template <bool POW2=false, class T>
 __device__ void sumKernelReduceU(T* a, size_t N, size_t i) {
   ASSERT(a);
-  __syncthreads();
-  for (N=N/2; N>0; N/=2) {
-    if (i<N) a[i] += a[N+i];
+  if (POW2) {
     __syncthreads();
+    for (N=N/2; N>0; N/=2) {
+      if (i<N) a[i] += a[N+i];
+      __syncthreads();
+    }
+  }
+  else {
+    __syncthreads();
+    for (; N>1;) {
+      size_t DN = (N+1)/2;
+      if (i<N/2) a[i] += a[DN+i];
+      __syncthreads();
+      N = DN;
+    }
   }
 }
 
@@ -588,40 +599,40 @@ __device__ T sumKernelLoop(const T *x, size_t N, size_t i, size_t DI) {
   return a;
 }
 
-template <class T, int S=BLOCK_LIMIT_REDUCE>
+template <bool POW2=false, class T, int S=BLOCK_LIMIT_REDUCE>
 __global__ void sumKernelW(T *a, const T *x, size_t N) {
   DEFINE(t, b, B, G);
   ASSERT(a && x);
   __shared__ T cache[S];
   cache[t] = sumKernelLoop(x, N, B*b+t, G*B);
-  sumKernelReduceU(cache, B, t);
+  sumKernelReduceU<POW2>(cache, B, t);
   if (t==0) a[b] = cache[0];
 }
 
-template <class T>
+template <bool POW2=false, class T>
 void sumMemcpyCuW(T *a, const T *x, size_t N) {
   ASSERT(a && x);
   const int B = BLOCK_SIZE(N,  BLOCK_LIMIT_REDUCE);
   const int G = GRID_SIZE(N, B, GRID_LIMIT_REDUCE);
-  sumKernelW<<<G, B>>>(a, x, N);
+  sumKernelW<POW2><<<G, B>>>(a, x, N);
   ASSERT_KERNEL();
 }
 
-template <class T>
+template <bool POW2=false, class T>
 void sumInplaceCuW(T *a, const T *x, size_t N) {
   ASSERT(a && x);
   const int B = BLOCK_SIZE(N,  BLOCK_LIMIT_REDUCE);
   const int G = GRID_SIZE(N, B, GRID_LIMIT_REDUCE);
-  sumKernelW<<<G, B>>>(a, x, N);
+  sumKernelW<POW2><<<G, B>>>(a, x, N);
   ASSERT_KERNEL();
-  sumKernelW<<<1, G>>>(a, a, G);
+  sumKernelW<POW2><<<1, G>>>(a, a, G);
   ASSERT_KERNEL();
 }
 
-template <class T>
+template <bool POW2=false, class T>
 void sumCuW(T *a, const T *x, size_t N) {
   ASSERT(a && x);
-  sumMemcpyCuW(a, x, N);
+  sumMemcpyCuW<POW2>(a, x, N);
 }
 
 
