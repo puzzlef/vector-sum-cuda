@@ -6,10 +6,10 @@ approaches, running each approach 5 times to get a good time measure. Sum
 here represents any reduction operation that processes several values to a
 single value. It appears **both approaches** have **similar** performance.
 
-All outputs are saved in [out](out/) and a small part of the output is listed
-here. Some [charts] are also included below, generated from [sheets]. This
-experiment was done with guidance from [Prof. Dip Sankar Banerjee] and
-[Prof. Kishore Kothapalli].
+All outputs for [float] and [double] are saved in *gists* and a small part of
+the output is listed here. Some [charts] are also included below, generated from
+[sheets]. This experiment was done with guidance from [Prof. Dip Sankar Banerjee]
+and [Prof. Kishore Kothapalli].
 
 <br>
 
@@ -64,8 +64,10 @@ $ ./a.out
 
 [Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
 [Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
-[memcpy]: https://github.com/puzzlef/sum-cuda-memcpy-adjust-launch
-[in-place]: https://github.com/puzzlef/sum-cuda-inplace-adjust-launch
+[memcpy]: https://github.com/puzzlef/vector-sum-cuda
+[in-place]: https://github.com/puzzlef/vector-sum-cuda
+[float]: https://gist.github.com/wolfram77/9911d9bc9f3397e075a70cc80fda54b4
+[double]: https://gist.github.com/wolfram77/e26d19d547db46f3edd1703aa9136acd
 [charts]: https://photos.app.goo.gl/a8PM8K1FXPm1LQed8
 [sheets]: https://docs.google.com/spreadsheets/d/1CpZRcOcQ1FKTX0nLWb6R7znPtgeQXhlA7HNEIm2_ZRc/edit?usp=sharing
 [sheetp]: https://docs.google.com/spreadsheets/d/e/2PACX-1vRpLHagCPAIPGmT43G6n8-U3S3u3vp04_M4ky8ekfG9U_MOxAtSSUZVFIM6msmYgYies4Ftsmm-DAeh/pubhtml
