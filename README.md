@@ -12,9 +12,9 @@ faster to calculate complete sum [in-place] instead of transferring to CPU.
 Results indicate no significant difference between [launch adjust] approach,
 and this one.
 
-All outputs are saved in [out](out/) and a small part of the output is listed
-here. This experiment was done with guidance from [Prof. Dip Sankar Banerjee]
-and [Prof. Kishore Kothapalli].
+All outputs for [float] and [double] are saved in *gists* and a small part of
+the output is listed here. This experiment was done with guidance from
+[Prof. Dip Sankar Banerjee] and [Prof. Kishore Kothapalli].
 
 <br>
 
@@ -119,5 +119,7 @@ $ ./a.out
 
 [Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
 [Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
-[launch adjust]: https://github.com/puzzlef/sum-cuda-memcpy-adjust-launch
-[in-place]: https://github.com/puzzlef/sum-cuda-inplace-adjust-launch
+[float]: https://gist.github.com/wolfram77/7aea7a9105f9959d66a5472ed282a9f5
+[double]: https://gist.github.com/wolfram77/66083b3e42b6c27ba3958230e36c71d0
+[launch adjust]: https://github.com/puzzlef/vector-sum-cuda
+[in-place]: https://github.com/puzzlef/vector-sum-cuda
