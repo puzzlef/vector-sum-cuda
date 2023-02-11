@@ -16,10 +16,10 @@ a **grid_limit** of `1024` and a **block_size** of `256` could be a decent
 choice. Interestingly, the *sequential sum* suffers from **precision issue**
 when using the **float** datatype, while the *CUDA based sum* does not.
 
-All outputs are saved in [out](out/) and a small part of the output is listed
-here. [Nsight Compute] profile results are saved in [prof](prof/). Some [charts]
-are also included below, generated from [sheets]. This experiment was done with
-guidance from [Prof. Dip Sankar Banerjee] and [Prof. Kishore Kothapalli].
+All outputs for [float] and [double], along with Nsight Compute [profile]
+results are saved in *gists* and a small part of the output is listed here. Some
+[charts] are also included below, generated from [sheets]. This experiment was
+done with guidance from [Prof. Dip Sankar Banerjee] and [Prof. Kishore Kothapalli].
 
 <br>
 
@@ -106,7 +106,10 @@ $ ./a.out
 [Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
 [Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
 [Nsight Compute]: https://developer.nvidia.com/nsight-compute
-[in-place]: https://github.com/puzzlef/sum-cuda-inplace-adjust-launch
+[in-place]: https://github.com/puzzlef/vector-sum-cuda
+[float]: https://gist.github.com/wolfram77/6b8f7a7e41a43271044303565eac95de
+[double]: https://gist.github.com/wolfram77/2393ffeb3d3f927d0b102b8212eea015
+[profile]: https://gist.github.com/wolfram77/2b2704109779b6b6b4f6c34052bd5460
 [charts]: https://photos.app.goo.gl/Jytw1qgSFPoTrL1FA
 [sheets]: https://docs.google.com/spreadsheets/d/1jNNg43h19DUNwdwQVkOsLe5Dq-f_MfIbzaGG1pai4SU/edit?usp=sharing
 [sheetp]: https://docs.google.com/spreadsheets/d/e/2PACX-1vQ4uC8kGvwbHyfRM-YpIHNEdWHwb7ufNGN2vxjEj1qFmjCmtrGigpTWs8SukrEh9iv7t20ZaQqXGa-0/pubhtml
