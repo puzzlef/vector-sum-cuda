@@ -19,10 +19,10 @@ and **standard reduce loop** (minimizing warp divergence) is both **shorter** an
 suffers from **precision issue** when using the **float** datatype, while the
 *CUDA based sum* does not (just like with [memcpy sum]).
 
-All outputs are saved in [out](out/) and a small part of the output is listed
-here. Some [charts] are also included below, generated from [sheets]. For
-related experiments, see [branches]. This experiment was done with guidance
-from [Prof. Dip Sankar Banerjee] and [Prof. Kishore Kothapalli].
+All outputs for [float] and [double] are saved in *gists* and a small part of
+the output is listed here. Some [charts] are also included below, generated from
+[sheets]. For related experiments, see [branches]. This experiment was done with
+guidance from [Prof. Dip Sankar Banerjee] and [Prof. Kishore Kothapalli].
 
 <br>
 
@@ -102,8 +102,10 @@ $ ./a.out
 
 [Prof. Dip Sankar Banerjee]: https://sites.google.com/site/dipsankarban/
 [Prof. Kishore Kothapalli]: https://cstar.iiit.ac.in/~kkishore/
-[memcpy sum]: https://github.com/puzzlef/sum-cuda-memcpy-adjust-launch
-[branches]: https://github.com/puzzlef/sum-cuda-inplace-adjust-launch/branches
+[memcpy sum]: https://github.com/puzzlef/vector-sum-cuda
+[branches]: https://github.com/puzzlef/vector-sum-cuda/branches
+[float]: https://gist.github.com/wolfram77/960fcfc946ef6f2fec326fac3f270b20
+[double]: https://gist.github.com/wolfram77/915f7ee62c10ca952eb44d2e3daf9196
 [charts]: https://photos.app.goo.gl/795Rcbqa14srjoZBA
 [sheets]: https://docs.google.com/spreadsheets/d/1pgIn6dcrKtVv0SoaJeQwTe1CzHRKuoUOXjn5_KJqrA8/edit?usp=sharing
 [sheetp]: https://docs.google.com/spreadsheets/d/e/2PACX-1vRR3VIK58QcfE3fDl2EMhg8TKvZQOq4QONU3WkcDZNihlzG82gtROy4QknkcN5xHlWyraIEtteS4YI2/pubhtml
